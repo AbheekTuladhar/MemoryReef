@@ -48,7 +48,7 @@ export function ErrorAnalysis({ run }: { run?: ExperimentRun }) {
       )}
       <h3>Rejected Or Duplicate Skills</h3>
       {rejectedOrDuplicate.length === 0 ? <p>None detected.</p> : (
-        <ul>{rejectedOrDuplicate.map((scenario) => <li key={scenario.pair_id}>{scenario.pair_id}: {scenario.notes.join("; ") || "Verifier rejected a skill."}</li>)}</ul>
+        <ul>{rejectedOrDuplicate.map((scenario) => <li key={scenario.pair_id}>{scenario.pair_id}: {scenario.notes.join("; ") || "Puffer rejected a skill."}</li>)}</ul>
       )}
       <h3>Retrieved Skill Mismatches</h3>
       {retrievalMismatches.length === 0 ? <p>None detected.</p> : (

@@ -1,7 +1,18 @@
+"""Puffer the verifier: a real ADK/Gemini agent that judges proposed skills.
+
+``verify_skill`` keeps its original signature and returns a ``Verification``.
+Mechanical safety checks stay as hard Python guards (they must never depend on
+an LLM): secret/PII rejection, too-terse revision, and duplicate detection. Only
+skills that clear those guards are handed to the Puffer LlmAgent, which makes the
+nuanced usefulness/generality judgement.
+"""
+
 from __future__ import annotations
 
 import re
 
+from backend.agents import AGENT_PUFFER
+from backend.agents.adk_runtime import PufferOutput, build_puffer, run_agent
 from backend.models import AgentLog, Skill, Verification
 from backend.tools.skill_store import load_skills
 
@@ -14,15 +25,6 @@ def _slug(value: str) -> str:
     return slug or "skill"
 
 
-def _unique_name(base_name: str, existing_names: set[str]) -> str:
-    if base_name.lower() not in existing_names:
-        return base_name
-    suffix = 2
-    while f"{base_name} {suffix}".lower() in existing_names:
-        suffix += 1
-    return f"{base_name} {suffix}"
-
-
 def _tag_key(skill: Skill) -> tuple[str, str, str]:
     tags = [tag.lower().strip() for tag in skill.tags[-3:]]
     while len(tags) < 3:
@@ -30,34 +32,45 @@ def _tag_key(skill: Skill) -> tuple[str, str, str]:
     return tuple(tags[:3])
 
 
+def _log(event: str, summary: str, confidence: float) -> AgentLog:
+    return AgentLog(agent=AGENT_PUFFER, event=event, summary=summary, confidence=confidence)
+
+
+def _ask_puffer(skill: Skill) -> PufferOutput:
+    steps = "\n".join(f"  - {step}" for step in skill.steps)
+    prompt = (
+        "Review this proposed debugging skill for the shared library.\n\n"
+        f"Name: {skill.name}\n"
+        f"Description: {skill.description}\n"
+        f"When to use: {'; '.join(skill.when_to_use)}\n"
+        f"Steps:\n{steps}\n"
+        f"Anti-pattern: {skill.anti_pattern}\n"
+        f"Tags: {', '.join(skill.tags)}\n\n"
+        "Decide status = approved / revised / rejected. Approve if it is a general, actionable, "
+        "reusable debugging procedure. Use 'revised' with concrete revised_fields only if a small fix "
+        "would make it storable. Reject only if it is not reusable or clearly unsafe."
+    )
+    return PufferOutput.model_validate_json(run_agent(build_puffer(), prompt))
+
+
 def verify_skill(skill: Skill) -> Verification:
     existing = load_skills()
-    existing_names = {item.name.lower() for item in existing}
     existing_tag_keys = {_tag_key(item) for item in existing}
     combined = " ".join([skill.name, skill.description, " ".join(skill.steps), " ".join(skill.when_to_use)])
-    base_logs = [
-        AgentLog(
-            agent="Verifier Agent",
-            event="skill_review",
-            summary=f"Checked proposed skill '{skill.name}' for usefulness, generality, duplicate names, and secret-like content.",
-            confidence=0.82,
-        )
-    ]
+    review_log = _log(
+        "skill_review",
+        f"Checked proposed skill '{skill.name}' for usefulness, generality, duplicate tags, and secret-like content.",
+        0.82,
+    )
+
+    # --- Hard, deterministic safety guards (never delegated to the LLM) --------
     if SECRETISH.search(combined):
         return Verification(
             status="rejected",
             reason="The skill appears to contain private or secret-like data.",
             final_skill=None,
             confidence=0.9,
-            agent_logs=base_logs
-            + [
-                AgentLog(
-                    agent="Verifier Agent",
-                    event="decision",
-                    summary="Rejected the skill because it matched secret-like or private-data patterns.",
-                    confidence=0.9,
-                )
-            ],
+            agent_logs=[review_log, _log("decision", "Rejected: matched secret-like or private-data patterns.", 0.9)],
         )
     if len(skill.description.split()) < 8 or len(skill.steps) < 3:
         revised = skill.model_copy(update={"status": "revised"})
@@ -66,15 +79,7 @@ def verify_skill(skill: Skill) -> Verification:
             reason="The skill was too terse, but can be revised before saving.",
             final_skill=revised,
             confidence=0.74,
-            agent_logs=base_logs
-            + [
-                AgentLog(
-                    agent="Verifier Agent",
-                    event="decision",
-                    summary="Revised instead of approving directly because the skill needed more actionable detail.",
-                    confidence=0.74,
-                )
-            ],
+            agent_logs=[review_log, _log("decision", "Revised: needed more actionable detail.", 0.74)],
         )
     if _tag_key(skill) in existing_tag_keys:
         return Verification(
@@ -85,53 +90,40 @@ def verify_skill(skill: Skill) -> Verification:
             ),
             final_skill=None,
             confidence=0.9,
-            agent_logs=base_logs
-            + [
-                AgentLog(
-                    agent="Verifier Agent",
-                    event="decision",
-                    summary=f"Rejected duplicate tag signature: {', '.join(skill.tags[-3:])}.",
-                    confidence=0.9,
-                )
-            ],
+            agent_logs=[review_log, _log("decision", f"Rejected duplicate tag signature: {', '.join(skill.tags[-3:])}.", 0.9)],
         )
-    unique_name = _unique_name(skill.name, existing_names)
-    if unique_name != skill.name:
-        revised = skill.model_copy(
-            update={
-                "skill_id": f"skill_{_slug(unique_name)}",
-                "name": unique_name,
-                "status": "revised",
-            }
+
+    # --- Nuanced judgement by the real Puffer agent ----------------------------
+    verdict = _ask_puffer(skill)
+    status = verdict.status.strip().lower()
+
+    if status == "rejected":
+        return Verification(
+            status="rejected",
+            reason=verdict.reason,
+            final_skill=None,
+            confidence=0.85,
+            agent_logs=[review_log, _log("decision", f"Puffer rejected the skill: {verdict.reason}", 0.85)],
         )
+    if status == "revised":
+        # Only allow Puffer to revise plain string fields, so we never inject a
+        # string where the schema expects a list.
+        allowed = {"name", "description", "anti_pattern"}
+        safe_fields = {k: v for k, v in verdict.revised_fields.items() if k in allowed and isinstance(v, str)}
+        revised = skill.model_copy(update={**safe_fields, "status": "revised"})
         return Verification(
             status="revised",
-            reason=f"A skill named '{skill.name}' already exists, so the proposed skill was renamed to '{unique_name}'.",
+            reason=verdict.reason,
             final_skill=revised,
-            confidence=0.86,
-            agent_logs=base_logs
-            + [
-                AgentLog(
-                    agent="Verifier Agent",
-                    event="decision",
-                    summary=f"Renamed the skill to '{unique_name}' to avoid a duplicate library entry.",
-                    confidence=0.86,
-                )
-            ],
+            confidence=0.8,
+            agent_logs=[review_log, _log("decision", f"Puffer revised the skill: {verdict.reason}", 0.8)],
         )
+    # Default to approval for anything Puffer did not explicitly reject/revise.
     final_skill = skill.model_copy(update={"status": "approved"})
     return Verification(
         status="approved",
-        reason="The skill is general, actionable, non-duplicative, and safe to store.",
+        reason=verdict.reason or "The skill is general, actionable, non-duplicative, and safe to store.",
         final_skill=final_skill,
         confidence=0.88,
-        agent_logs=base_logs
-        + [
-            AgentLog(
-                agent="Verifier Agent",
-                event="decision",
-                summary="Approved the skill because it is procedural, reusable, non-duplicative, and free of secret-like content.",
-                confidence=0.88,
-            )
-        ],
+        agent_logs=[review_log, _log("decision", f"Puffer approved the skill: {verdict.reason}", 0.88)],
     )

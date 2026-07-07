@@ -1,4 +1,4 @@
-import { Play } from "lucide-react";
+import { Loader2, Play } from "lucide-react";
 import { CustomLogInput } from "./CustomLogInput";
 import { Scenario } from "../types";
 
@@ -20,6 +20,8 @@ type Props = {
   onCustomSkillChange: (value: string) => void;
   onProjectZipChange: (value: { name: string; base64: string }) => void;
   onCreateCustom: () => void;
+  running?: boolean;
+  disabled?: boolean;
 };
 
 export function ScenarioSelector({
@@ -39,7 +41,9 @@ export function ScenarioSelector({
   onCustomExpectedChange,
   onCustomSkillChange,
   onProjectZipChange,
-  onCreateCustom
+  onCreateCustom,
+  running = false,
+  disabled = false
 }: Props) {
   const selected = scenarios.find((scenario) => scenario.scenario_id === selectedId);
   const isCustomDraft = selectedId === "__custom__";
@@ -50,9 +54,14 @@ export function ScenarioSelector({
           <h2>Scenario</h2>
           <p>Choose a scenario, or add your own logs.</p>
         </div>
-        <button className="primaryButton" onClick={onRun} disabled={isCustomDraft} title="Run attempt">
-          <Play size={16} />
-          Run
+        <button
+          className="primaryButton"
+          onClick={onRun}
+          disabled={isCustomDraft || running || disabled}
+          title="Run attempt"
+        >
+          {running ? <Loader2 size={16} className="spin" /> : <Play size={16} />}
+          {running ? "Dory is working…" : "Run"}
         </button>
       </div>
       <select value={selectedId} onChange={(event) => onSelect(event.target.value)}>

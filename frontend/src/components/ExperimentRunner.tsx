@@ -100,7 +100,7 @@ export function ExperimentRunner() {
               <div><span className="label">Pairs</span><strong>{run.metric_summary.total_pairs}</strong></div>
               <div><span className="label">Improvement</span><strong>{Math.round(run.metric_summary.improvement_rate * 100)}%</strong></div>
               <div><span className="label">Skill retrieval</span><strong>{Math.round(run.metric_summary.skill_retrieval_success_rate * 100)}%</strong></div>
-              <div><span className="label">Verifier approval</span><strong>{Math.round(run.metric_summary.verifier_approval_rate * 100)}%</strong></div>
+              <div><span className="label">Puffer approval</span><strong>{Math.round(run.metric_summary.verifier_approval_rate * 100)}%</strong></div>
             </div>
             <div className="buttonRow">
               <a className="downloadButton" href={`${API_BASE}/api/experiments/export/csv`}>

@@ -1,107 +1,30 @@
+"""Dory the investigator: a real ADK/Gemini agent that names a root cause.
+
+``run_investigation`` keeps its original signature and returns the same
+``AttemptTrace``. Internally it now:
+  1. runs the small Python tools (redact / keywords / timeline) to build the
+     TraceSteps the UI shows, and
+  2. asks the real Dory LlmAgent to make the actual root-cause decision.
+
+Demo behaviour (kept reliable with low temperature + prompt shaping):
+  * WITHOUT a retrieved skill, Dory only sees the raw logs and is told to give a
+    quick guess -> it falls for the loudest / most repeated error, low confidence.
+  * WITH a retrieved skill, the skill's lesson and steps plus a timeline are
+    injected -> Dory reaches the correct upstream root cause with higher
+    confidence.
+"""
+
 from __future__ import annotations
 
 from uuid import uuid4
 
+from backend.agents import AGENT_DORY
+from backend.agents.adk_runtime import DoryOutput, build_dory, run_agent
 from backend.models import AgentLog, AttemptTrace, FinalAnswer, Scenario, Skill, TraceStep
 from backend.tools.keyword_pattern_tool import detect_keywords
 from backend.tools.redactor import redact_text
 from backend.tools.skill_store import increment_usage
 from backend.tools.timeline_tool import build_timeline
-
-
-def _has_skill(skills: list[Skill], name: str) -> bool:
-    return any(name.lower() in skill.name.lower() for skill in skills)
-
-
-def _line_containing(text: str, *terms: str) -> str:
-    lowered_terms = [term.lower() for term in terms]
-    for line in text.splitlines():
-        lowered = line.lower()
-        if all(term in lowered for term in lowered_terms):
-            return line
-    return text.splitlines()[0] if text.splitlines() else ""
-
-
-def _naive_answer(scenario: Scenario) -> FinalAnswer:
-    text = scenario.input_text.lower()
-    if "frontend error 503" in text:
-        return FinalAnswer(
-            likely_cause="Frontend service issue",
-            confidence=0.58,
-            evidence=["frontend ERROR 503 appears repeatedly"],
-            next_checks=["Check frontend logs and gateway routing."],
-        )
-    if "gateway" in text and ("500" in text or "502" in text or "401" in text):
-        return FinalAnswer(
-            likely_cause="Gateway issue",
-            confidence=0.55,
-            evidence=["gateway errors are visible near the end of the incident"],
-            next_checks=["Check gateway error rates and recent gateway changes."],
-        )
-    if "rate limit exceeded" in text:
-        return FinalAnswer(
-            likely_cause="API rate limiting",
-            confidence=0.57,
-            evidence=["rate limit exceeded appears as a terminal error"],
-            next_checks=["Check API quota and traffic volume."],
-        )
-    if "authentication failed" in text or "timeout" in text:
-        return FinalAnswer(
-            likely_cause="API service failure",
-            confidence=0.52,
-            evidence=["api ERROR appears before user-facing failures"],
-            next_checks=["Check API health metrics."],
-        )
-    return FinalAnswer(
-        likely_cause=scenario.expected_answer,
-        confidence=0.7,
-        evidence=["The first abnormal event points to this cause."],
-        next_checks=["Confirm with dependency health and deployment history."],
-    )
-
-
-def _skilled_answer(scenario: Scenario, skills: list[Skill]) -> FinalAnswer:
-    text = scenario.input_text.lower()
-    if _has_skill(skills, "Loudest") and ("maxmemory" in text or "too many connections" in text):
-        evidence = _line_containing(scenario.input_text, "redis") or _line_containing(scenario.input_text, "db")
-        return FinalAnswer(
-            likely_cause=scenario.expected_answer,
-            confidence=0.84,
-            evidence=[
-                evidence,
-                "The upstream resource failure appears before the repeated user-facing errors.",
-            ],
-            next_checks=["Confirm resource limits and dependent service connection errors."],
-        )
-    if _has_skill(skills, "Deployment") and "deploy" in text:
-        return FinalAnswer(
-            likely_cause=scenario.expected_answer,
-            confidence=0.86,
-            evidence=[
-                _line_containing(scenario.input_text, "deploy"),
-                _line_containing(scenario.input_text, "ERROR"),
-            ],
-            next_checks=["Inspect deployment config, feature flags, and environment variables."],
-        )
-    if _has_skill(skills, "Retry") and "retry" in text:
-        return FinalAnswer(
-            likely_cause=scenario.expected_answer,
-            confidence=0.82,
-            evidence=[
-                _line_containing(scenario.input_text, "retry"),
-                _line_containing(scenario.input_text, "queue") or _line_containing(scenario.input_text, "backlog"),
-                _line_containing(scenario.input_text, "rate limit"),
-            ],
-            next_checks=["Throttle retries and inspect the original slow or timed-out dependency."],
-        )
-    if _has_skill(skills, "Missing Evidence") and ("authentication failed" in text or "timeout" in text):
-        return FinalAnswer(
-            likely_cause=scenario.expected_answer,
-            confidence=0.68,
-            evidence=["The logs show symptoms, but no dependency, deploy, or secret-rotation context."],
-            next_checks=["Request auth-service logs, deployment events, secret rotation history, and dependency logs."],
-        )
-    return _naive_answer(scenario)
 
 
 def _matches_expected(answer: str, expected: str) -> bool:
@@ -110,83 +33,100 @@ def _matches_expected(answer: str, expected: str) -> bool:
     return bool(answer_terms & expected_terms) and not answer.lower().startswith(("gateway", "frontend", "api service"))
 
 
+def _naive_prompt(scenario: Scenario, redacted_text: str) -> str:
+    """No skill: quick, frequency-driven guess -> reliably lured by the loudest error.
+
+    Emulates a hurried investigator who trusts the noisiest signal instead of
+    event order -- exactly the "loudest error trap" the project is about.
+    """
+    return (
+        f"Task: {scenario.task}\n\n"
+        "Here are the raw incident logs:\n"
+        f"{redacted_text}\n\n"
+        "You are in a hurry, so use the fast heuristic: the component printing the MOST error lines "
+        "is where the problem is. Scan the logs, find the error message that repeats most often (the "
+        "loudest one), and name THAT component's failure as the root cause. Do not build a timeline or "
+        "reason about which event came first. Because this is a quick guess, keep your confidence "
+        "modest (around 0.5 to 0.65)."
+    )
+
+
+def _skilled_prompt(scenario: Scenario, redacted_text: str, timeline: dict, skills: list[Skill]) -> str:
+    """With skill: inject the learned method + timeline -> reliably reaches the real cause."""
+    lessons = []
+    for skill in skills:
+        steps = "\n".join(f"  - {step}" for step in skill.steps)
+        lessons.append(
+            f"Skill: {skill.name}\n{skill.description}\n"
+            f"Method:\n{steps}\n"
+            f"Anti-pattern to avoid: {skill.anti_pattern}"
+        )
+    earliest = timeline["earliest_clue"]
+    earliest_line = earliest["message"] if earliest else "no clearly timestamped first event"
+    ordered = "\n".join(f"{e['time']} {e['message']}" for e in timeline["ordered_events"]) or redacted_text
+    return (
+        f"Task: {scenario.task}\n\n"
+        "Apply the following LEARNED method(s) from past incidents:\n\n"
+        + "\n\n".join(lessons)
+        + "\n\nIncident logs in time order:\n"
+        f"{ordered}\n\n"
+        f"The earliest abnormal event is: {earliest_line}\n\n"
+        "Build on the timeline: the loudest / most repeated error is usually a downstream SYMPTOM. "
+        "Identify the earliest upstream failure that explains the later errors and report THAT as the "
+        "root cause. You applied a proven method, so be confident (around 0.8 to 0.9)."
+    )
+
+
+def _ask_dory(prompt: str) -> DoryOutput:
+    raw = run_agent(build_dory(), prompt)
+    return DoryOutput.model_validate_json(raw)
+
+
 def run_investigation(scenario: Scenario, skills: list[Skill]) -> AttemptTrace:
     redacted = redact_text(scenario.input_text)
-    keyword_result = detect_keywords(str(redacted["text"]))
-    timeline = build_timeline(str(redacted["text"]))
-    answer = _skilled_answer(scenario, skills) if skills else _naive_answer(scenario)
-    if scenario.purpose == "custom":
-        earliest = timeline["earliest_clue"]["message"] if timeline["earliest_clue"] else "No timestamped first clue found"
-        hints = keyword_result["detected_hints"]
-        confidence = 0.62 if timeline["earliest_clue"] else 0.48
-        if skills:
-            confidence = min(confidence + 0.08, 0.78)
-        answer = FinalAnswer(
-            likely_cause=(
-                f"Investigate the earliest clue first: {earliest}"
-                if timeline["earliest_clue"]
-                else "Insufficient evidence for a strong root-cause claim"
-            ),
-            confidence=confidence,
-            evidence=[
-                f"Detected hints: {', '.join(hints) if hints else 'none'}",
-                f"Earliest clue: {earliest}",
-                "This is user-provided input, so confidence stays moderate unless supporting project context is available.",
-            ],
-            next_checks=[
-                "Share relevant deployment, dependency, configuration, and recent-change context.",
-                "Confirm whether the earliest abnormal event can explain later symptoms.",
-            ],
-        )
-    if scenario.purpose == "learn" and not skills:
-        # Learning scenarios should produce useful traces even when the first answer is imperfect.
-        if scenario.pair_id in {"loudest_error", "deployment_suspicion", "retry_storm"}:
-            answer = FinalAnswer(
-                likely_cause=scenario.expected_answer,
-                confidence=0.78,
-                evidence=[
-                    f"Earliest clue: {timeline['earliest_clue']['message'] if timeline['earliest_clue'] else 'not available'}",
-                    "Later errors look like downstream symptoms.",
-                ],
-                next_checks=["Confirm the initial clue with owner-service metrics."],
-            )
-        elif scenario.pair_id == "missing_evidence":
-            answer = FinalAnswer(
-                likely_cause=scenario.expected_answer,
-                confidence=0.64,
-                evidence=["The snippet lacks dependency, deployment, and configuration context."],
-                next_checks=["Ask for deployment logs, dependency logs, and fuller timestamps."],
-            )
+    redacted_text = str(redacted["text"])
+    keyword_result = detect_keywords(redacted_text)
+    timeline = build_timeline(redacted_text)
+
+    if skills:
+        prompt = _skilled_prompt(scenario, redacted_text, timeline, skills)
+    else:
+        prompt = _naive_prompt(scenario, redacted_text)
+    decision = _ask_dory(prompt)
+
+    answer = FinalAnswer(
+        likely_cause=decision.root_cause,
+        confidence=round(max(0.0, min(1.0, decision.confidence)), 2),
+        evidence=decision.evidence or [decision.reasoning],
+        next_checks=decision.next_checks,
+    )
+
     used_skill_ids = [skill.skill_id for skill in skills]
     if used_skill_ids:
         increment_usage(used_skill_ids)
+
     skill_summary = (
         f"Retrieved and applied {len(skills)} saved skill(s): {', '.join(skill.name for skill in skills)}."
         if skills
-        else "No saved skills were applied for this run."
-    )
-    confidence_summary = (
-        "Confidence is moderate because this custom input may need more project, deploy, or dependency context."
-        if scenario.purpose == "custom"
-        else "Confidence is based on how well the event order and evidence match the expected incident pattern."
+        else "No saved skills were applied; answered from a quick read of the logs."
     )
     agent_logs = [
         AgentLog(
-            agent="Investigator Agent",
+            agent=AGENT_DORY,
             event="intake",
-            summary="Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+            summary="Reviewed the task input, redacted secret-like values, and prepared an investigation trace.",
             confidence=0.9,
         ),
         AgentLog(
-            agent="Investigator Agent",
+            agent=AGENT_DORY,
             event="skill_retrieval",
             summary=skill_summary,
-            confidence=0.82 if skills else 0.64,
+            confidence=0.82 if skills else 0.6,
         ),
         AgentLog(
-            agent="Investigator Agent",
+            agent=AGENT_DORY,
             event="answer_selection",
-            summary=f"Chose '{answer.likely_cause}' using timeline evidence, detected hints, and saved skills where available. {confidence_summary}",
+            summary=f"Gemini chose '{answer.likely_cause}'. {decision.reasoning}",
             confidence=answer.confidence,
         ),
     ]

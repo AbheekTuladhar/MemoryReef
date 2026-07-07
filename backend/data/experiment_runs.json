@@ -1,11 +1,11 @@
 [
   {
     "run_id": "experiment_6907076c0f",
-    "config_id": "loglearner_small_data_learning_v1",
+    "config_id": "memoryreef_small_data_learning_v1",
     "hypothesis": "Agents that reflect on their own debugging traces and store verified reusable skills will solve related debugging tasks more accurately than agents without saved skills.",
     "created_at": "2026-07-03T22:06:29.636764+00:00",
     "request": {
-      "config_id": "loglearner_small_data_learning_v1",
+      "config_id": "memoryreef_small_data_learning_v1",
       "scenario_pair_ids": null,
       "conditions": null,
       "verifier_enabled": true,
@@ -41,19 +41,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Frontend service issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.58
@@ -80,49 +80,49 @@
             "verification_status": "approved",
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Database connection exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.78
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "trace_review",
                 "summary": "Reviewed trace trace_dce1ad73, including 3 tool step(s) and 0 saved skill reference(s).",
                 "confidence": 0.84
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "lesson_extraction",
                 "summary": "Generated 1 candidate reflection(s) and selected a non-duplicate lesson by comparing the final three skill tags: Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "safety_filter",
                 "summary": "Kept the proposed skill procedural and avoided storing hidden reasoning or private raw thoughts.",
                 "confidence": 0.88
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "skill_review",
                 "summary": "Checked proposed skill 'Avoid the Loudest Error Trap' for usefulness, generality, duplicate names, and secret-like content.",
                 "confidence": 0.82
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "decision",
                 "summary": "Approved the skill because it is procedural, reusable, non-duplicative, and free of secret-like content.",
                 "confidence": 0.88
@@ -151,19 +151,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Redis memory exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.84
@@ -191,19 +191,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 1 saved skill(s): Random Control Skill.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Frontend service issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.58
@@ -242,19 +242,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.55
@@ -281,49 +281,49 @@
             "verification_status": "approved",
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Missing JWT_SECRET environment variable after deployment' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.78
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "trace_review",
                 "summary": "Reviewed trace trace_9d19cbf1, including 3 tool step(s) and 0 saved skill reference(s).",
                 "confidence": 0.84
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "lesson_extraction",
                 "summary": "Generated 1 candidate reflection(s) and selected a non-duplicate lesson by comparing the final three skill tags: Check Recent Deployment Configuration.",
                 "confidence": 0.82
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "safety_filter",
                 "summary": "Kept the proposed skill procedural and avoided storing hidden reasoning or private raw thoughts.",
                 "confidence": 0.88
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "skill_review",
                 "summary": "Checked proposed skill 'Check Recent Deployment Configuration' for usefulness, generality, duplicate names, and secret-like content.",
                 "confidence": 0.82
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "decision",
                 "summary": "Approved the skill because it is procedural, reusable, non-duplicative, and free of secret-like content.",
                 "confidence": 0.88
@@ -353,19 +353,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 2 saved skill(s): Check Recent Deployment Configuration, Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Unknown CHECKOUT_V2 feature flag after deployment' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.86
@@ -393,19 +393,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.55
@@ -444,19 +444,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'API rate limiting' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.57
@@ -483,49 +483,49 @@
             "verification_status": "approved",
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Inventory timeout caused retry amplification and queue growth' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.78
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "trace_review",
                 "summary": "Reviewed trace trace_e676acf7, including 3 tool step(s) and 0 saved skill reference(s).",
                 "confidence": 0.84
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "lesson_extraction",
                 "summary": "Generated 1 candidate reflection(s) and selected a non-duplicate lesson by comparing the final three skill tags: Detect Retry Amplification.",
                 "confidence": 0.82
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "safety_filter",
                 "summary": "Kept the proposed skill procedural and avoided storing hidden reasoning or private raw thoughts.",
                 "confidence": 0.88
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "skill_review",
                 "summary": "Checked proposed skill 'Detect Retry Amplification' for usefulness, generality, duplicate names, and secret-like content.",
                 "confidence": 0.82
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "decision",
                 "summary": "Approved the skill because it is procedural, reusable, non-duplicative, and free of secret-like content.",
                 "confidence": 0.88
@@ -557,19 +557,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 3 saved skill(s): Detect Retry Amplification, Avoid the Loudest Error Trap, Check Recent Deployment Configuration.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Email service slowdown caused retry amplification and backlog growth' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.82
@@ -597,19 +597,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'API rate limiting' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.57
@@ -648,19 +648,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.55
@@ -686,49 +686,49 @@
             "verification_status": "approved",
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Insufficient evidence; ask for deployment logs, dependency logs, and fuller timing' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.64
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "trace_review",
                 "summary": "Reviewed trace trace_145765de, including 3 tool step(s) and 0 saved skill reference(s).",
                 "confidence": 0.84
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "lesson_extraction",
                 "summary": "Generated 1 candidate reflection(s) and selected a non-duplicate lesson by comparing the final three skill tags: Ask for Missing Evidence Before Guessing.",
                 "confidence": 0.82
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "safety_filter",
                 "summary": "Kept the proposed skill procedural and avoided storing hidden reasoning or private raw thoughts.",
                 "confidence": 0.88
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "skill_review",
                 "summary": "Checked proposed skill 'Ask for Missing Evidence Before Guessing' for usefulness, generality, duplicate names, and secret-like content.",
                 "confidence": 0.82
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "decision",
                 "summary": "Approved the skill because it is procedural, reusable, non-duplicative, and free of secret-like content.",
                 "confidence": 0.88
@@ -758,19 +758,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 3 saved skill(s): Ask for Missing Evidence Before Guessing, Avoid the Loudest Error Trap, Detect Retry Amplification.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Insufficient evidence; ask for auth-service logs, deployment events, or secret rotation history' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.68
@@ -798,19 +798,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.55
@@ -887,11 +887,11 @@
   },
   {
     "run_id": "experiment_10c05794de",
-    "config_id": "loglearner_small_data_learning_v1",
+    "config_id": "memoryreef_small_data_learning_v1",
     "hypothesis": "Agents that reflect on their own debugging traces and store verified reusable skills will solve related debugging tasks more accurately than agents without saved skills.",
     "created_at": "2026-07-03T22:11:22.931493+00:00",
     "request": {
-      "config_id": "loglearner_small_data_learning_v1",
+      "config_id": "memoryreef_small_data_learning_v1",
       "scenario_pair_ids": null,
       "conditions": null,
       "verifier_enabled": true,
@@ -927,19 +927,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Frontend service issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.58
@@ -966,49 +966,49 @@
             "verification_status": "approved",
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Database connection exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.78
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "trace_review",
                 "summary": "Reviewed trace trace_f12a3984, including 3 tool step(s) and 0 saved skill reference(s).",
                 "confidence": 0.84
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "lesson_extraction",
                 "summary": "Generated 1 candidate reflection(s) and selected a non-duplicate lesson by comparing the final three skill tags: Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "safety_filter",
                 "summary": "Kept the proposed skill procedural and avoided storing hidden reasoning or private raw thoughts.",
                 "confidence": 0.88
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "skill_review",
                 "summary": "Checked proposed skill 'Avoid the Loudest Error Trap' for usefulness, generality, duplicate names, and secret-like content.",
                 "confidence": 0.82
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "decision",
                 "summary": "Approved the skill because it is procedural, reusable, non-duplicative, and free of secret-like content.",
                 "confidence": 0.88
@@ -1037,19 +1037,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Redis memory exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.84
@@ -1077,19 +1077,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 1 saved skill(s): Random Control Skill.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Frontend service issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.58
@@ -1128,19 +1128,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.55
@@ -1167,49 +1167,49 @@
             "verification_status": "approved",
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Missing JWT_SECRET environment variable after deployment' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.78
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "trace_review",
                 "summary": "Reviewed trace trace_251bad30, including 3 tool step(s) and 0 saved skill reference(s).",
                 "confidence": 0.84
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "lesson_extraction",
                 "summary": "Generated 1 candidate reflection(s) and selected a non-duplicate lesson by comparing the final three skill tags: Check Recent Deployment Configuration.",
                 "confidence": 0.82
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "safety_filter",
                 "summary": "Kept the proposed skill procedural and avoided storing hidden reasoning or private raw thoughts.",
                 "confidence": 0.88
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "skill_review",
                 "summary": "Checked proposed skill 'Check Recent Deployment Configuration' for usefulness, generality, duplicate names, and secret-like content.",
                 "confidence": 0.82
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "decision",
                 "summary": "Approved the skill because it is procedural, reusable, non-duplicative, and free of secret-like content.",
                 "confidence": 0.88
@@ -1239,19 +1239,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 2 saved skill(s): Check Recent Deployment Configuration, Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Unknown CHECKOUT_V2 feature flag after deployment' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.86
@@ -1279,19 +1279,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.55
@@ -1330,19 +1330,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'API rate limiting' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.57
@@ -1369,49 +1369,49 @@
             "verification_status": "approved",
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Inventory timeout caused retry amplification and queue growth' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.78
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "trace_review",
                 "summary": "Reviewed trace trace_49e4d894, including 3 tool step(s) and 0 saved skill reference(s).",
                 "confidence": 0.84
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "lesson_extraction",
                 "summary": "Generated 1 candidate reflection(s) and selected a non-duplicate lesson by comparing the final three skill tags: Detect Retry Amplification.",
                 "confidence": 0.82
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "safety_filter",
                 "summary": "Kept the proposed skill procedural and avoided storing hidden reasoning or private raw thoughts.",
                 "confidence": 0.88
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "skill_review",
                 "summary": "Checked proposed skill 'Detect Retry Amplification' for usefulness, generality, duplicate names, and secret-like content.",
                 "confidence": 0.82
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "decision",
                 "summary": "Approved the skill because it is procedural, reusable, non-duplicative, and free of secret-like content.",
                 "confidence": 0.88
@@ -1443,19 +1443,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 3 saved skill(s): Detect Retry Amplification, Avoid the Loudest Error Trap, Check Recent Deployment Configuration.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Email service slowdown caused retry amplification and backlog growth' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.82
@@ -1483,19 +1483,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'API rate limiting' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.57
@@ -1534,19 +1534,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.55
@@ -1572,49 +1572,49 @@
             "verification_status": "approved",
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Insufficient evidence; ask for deployment logs, dependency logs, and fuller timing' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.64
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "trace_review",
                 "summary": "Reviewed trace trace_8359809a, including 3 tool step(s) and 0 saved skill reference(s).",
                 "confidence": 0.84
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "lesson_extraction",
                 "summary": "Generated 1 candidate reflection(s) and selected a non-duplicate lesson by comparing the final three skill tags: Ask for Missing Evidence Before Guessing.",
                 "confidence": 0.82
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "safety_filter",
                 "summary": "Kept the proposed skill procedural and avoided storing hidden reasoning or private raw thoughts.",
                 "confidence": 0.88
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "skill_review",
                 "summary": "Checked proposed skill 'Ask for Missing Evidence Before Guessing' for usefulness, generality, duplicate names, and secret-like content.",
                 "confidence": 0.82
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "decision",
                 "summary": "Approved the skill because it is procedural, reusable, non-duplicative, and free of secret-like content.",
                 "confidence": 0.88
@@ -1644,19 +1644,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 3 saved skill(s): Ask for Missing Evidence Before Guessing, Avoid the Loudest Error Trap, Detect Retry Amplification.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Insufficient evidence; ask for auth-service logs, deployment events, or secret rotation history' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.68
@@ -1684,19 +1684,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.55
@@ -1768,7 +1768,7 @@
       "dataset": "backend/data/scenarios.json",
       "notes": "This configuration is intended for a small curated prototype benchmark and should not be interpreted as statistically generalizable without more scenarios.",
       "app_version": "0.1.0",
-      "config_used": "loglearner_small_data_learning_v1",
+      "config_used": "memoryreef_small_data_learning_v1",
       "run_id": "experiment_10c05794de",
       "timestamp": "2026-07-03T22:11:22.931493+00:00",
       "scenario_pair_count": 4,
@@ -1780,11 +1780,11 @@
   },
   {
     "run_id": "experiment_18e5671735",
-    "config_id": "loglearner_small_data_learning_v1",
+    "config_id": "memoryreef_small_data_learning_v1",
     "hypothesis": "Agents that reflect on their own debugging traces and store verified reusable skills will solve related debugging tasks more accurately than agents without saved skills.",
     "created_at": "2026-07-03T22:12:21.708137+00:00",
     "request": {
-      "config_id": "loglearner_small_data_learning_v1",
+      "config_id": "memoryreef_small_data_learning_v1",
       "scenario_pair_ids": null,
       "conditions": null,
       "verifier_enabled": true,
@@ -1820,19 +1820,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Frontend service issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.58
@@ -1859,49 +1859,49 @@
             "verification_status": "approved",
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Database connection exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.78
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "trace_review",
                 "summary": "Reviewed trace trace_6a3b9e4f, including 3 tool step(s) and 0 saved skill reference(s).",
                 "confidence": 0.84
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "lesson_extraction",
                 "summary": "Generated 1 candidate reflection(s) and selected a non-duplicate lesson by comparing the final three skill tags: Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "safety_filter",
                 "summary": "Kept the proposed skill procedural and avoided storing hidden reasoning or private raw thoughts.",
                 "confidence": 0.88
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "skill_review",
                 "summary": "Checked proposed skill 'Avoid the Loudest Error Trap' for usefulness, generality, duplicate names, and secret-like content.",
                 "confidence": 0.82
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "decision",
                 "summary": "Approved the skill because it is procedural, reusable, non-duplicative, and free of secret-like content.",
                 "confidence": 0.88
@@ -1930,19 +1930,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Redis memory exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.84
@@ -1970,19 +1970,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 1 saved skill(s): Random Control Skill.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Frontend service issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.58
@@ -2021,19 +2021,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.55
@@ -2060,49 +2060,49 @@
             "verification_status": "approved",
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Missing JWT_SECRET environment variable after deployment' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.78
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "trace_review",
                 "summary": "Reviewed trace trace_05fa5b46, including 3 tool step(s) and 0 saved skill reference(s).",
                 "confidence": 0.84
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "lesson_extraction",
                 "summary": "Generated 1 candidate reflection(s) and selected a non-duplicate lesson by comparing the final three skill tags: Check Recent Deployment Configuration.",
                 "confidence": 0.82
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "safety_filter",
                 "summary": "Kept the proposed skill procedural and avoided storing hidden reasoning or private raw thoughts.",
                 "confidence": 0.88
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "skill_review",
                 "summary": "Checked proposed skill 'Check Recent Deployment Configuration' for usefulness, generality, duplicate names, and secret-like content.",
                 "confidence": 0.82
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "decision",
                 "summary": "Approved the skill because it is procedural, reusable, non-duplicative, and free of secret-like content.",
                 "confidence": 0.88
@@ -2132,19 +2132,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 2 saved skill(s): Check Recent Deployment Configuration, Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Unknown CHECKOUT_V2 feature flag after deployment' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.86
@@ -2172,19 +2172,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.55
@@ -2223,19 +2223,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'API rate limiting' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.57
@@ -2262,49 +2262,49 @@
             "verification_status": "approved",
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Inventory timeout caused retry amplification and queue growth' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.78
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "trace_review",
                 "summary": "Reviewed trace trace_fc3f5008, including 3 tool step(s) and 0 saved skill reference(s).",
                 "confidence": 0.84
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "lesson_extraction",
                 "summary": "Generated 1 candidate reflection(s) and selected a non-duplicate lesson by comparing the final three skill tags: Detect Retry Amplification.",
                 "confidence": 0.82
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "safety_filter",
                 "summary": "Kept the proposed skill procedural and avoided storing hidden reasoning or private raw thoughts.",
                 "confidence": 0.88
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "skill_review",
                 "summary": "Checked proposed skill 'Detect Retry Amplification' for usefulness, generality, duplicate names, and secret-like content.",
                 "confidence": 0.82
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "decision",
                 "summary": "Approved the skill because it is procedural, reusable, non-duplicative, and free of secret-like content.",
                 "confidence": 0.88
@@ -2336,19 +2336,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 3 saved skill(s): Detect Retry Amplification, Avoid the Loudest Error Trap, Check Recent Deployment Configuration.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Email service slowdown caused retry amplification and backlog growth' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.82
@@ -2376,19 +2376,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'API rate limiting' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.57
@@ -2427,19 +2427,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.55
@@ -2465,49 +2465,49 @@
             "verification_status": "approved",
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "No saved skills were applied for this run.",
                 "confidence": 0.64
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Insufficient evidence; ask for deployment logs, dependency logs, and fuller timing' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.64
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "trace_review",
                 "summary": "Reviewed trace trace_8fdcb2f8, including 3 tool step(s) and 0 saved skill reference(s).",
                 "confidence": 0.84
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "lesson_extraction",
                 "summary": "Generated 1 candidate reflection(s) and selected a non-duplicate lesson by comparing the final three skill tags: Ask for Missing Evidence Before Guessing.",
                 "confidence": 0.82
               },
               {
-                "agent": "Reflection Agent",
+                "agent": "Nemo",
                 "event": "safety_filter",
                 "summary": "Kept the proposed skill procedural and avoided storing hidden reasoning or private raw thoughts.",
                 "confidence": 0.88
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "skill_review",
                 "summary": "Checked proposed skill 'Ask for Missing Evidence Before Guessing' for usefulness, generality, duplicate names, and secret-like content.",
                 "confidence": 0.82
               },
               {
-                "agent": "Verifier Agent",
+                "agent": "Puffer",
                 "event": "decision",
                 "summary": "Approved the skill because it is procedural, reusable, non-duplicative, and free of secret-like content.",
                 "confidence": 0.88
@@ -2537,19 +2537,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 3 saved skill(s): Ask for Missing Evidence Before Guessing, Avoid the Loudest Error Trap, Detect Retry Amplification.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Insufficient evidence; ask for auth-service logs, deployment events, or secret rotation history' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.68
@@ -2577,19 +2577,19 @@
             "verification_status": null,
             "agent_logs": [
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "intake",
                 "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
                 "confidence": 0.9
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "skill_retrieval",
                 "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
                 "confidence": 0.82
               },
               {
-                "agent": "Investigator Agent",
+                "agent": "Dory",
                 "event": "answer_selection",
                 "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
                 "confidence": 0.55
@@ -2661,7 +2661,7 @@
       "dataset": "backend/data/scenarios.json",
       "notes": "This configuration is intended for a small curated prototype benchmark and should not be interpreted as statistically generalizable without more scenarios.",
       "app_version": "0.1.0",
-      "config_used": "loglearner_small_data_learning_v1",
+      "config_used": "memoryreef_small_data_learning_v1",
       "run_id": "experiment_18e5671735",
       "timestamp": "2026-07-03T22:12:21.708137+00:00",
       "scenario_pair_count": 4,

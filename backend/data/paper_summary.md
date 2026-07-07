@@ -1,4 +1,4 @@
-# LogLearner Experiment Summary
+# MemoryReef Experiment Summary
 
 Run ID: `experiment_18e5671735`
 Created at: `2026-07-03T22:12:21.708137+00:00`
@@ -30,7 +30,7 @@ Conditions run: baseline, learning, random_skill, reuse
 
 - Accuracy: fraction of condition answers matching the expected answer.
 - Matched expected: raw count of correct condition answers.
-- Confidence: mean reported Investigator confidence.
+- Confidence: mean reported Dory confidence.
 - Confidence delta: reuse confidence minus baseline confidence for each pair.
 - Evidence quality proxy: average number of cited evidence items.
 - Skill retrieval success: fraction of reuse runs where at least one skill was applied.
@@ -46,7 +46,7 @@ Conditions run: baseline, learning, random_skill, reuse
 - Confidence delta by pair: {'loudest_error': 0.26, 'deployment_suspicion': 0.31, 'retry_storm': 0.25, 'missing_evidence': 0.13}
 - Evidence quality proxy by condition: {'baseline': 1.0, 'learning': 1.75, 'random_skill': 1.0, 'reuse': 2.0}
 - Skill retrieval success rate: 1.0
-- Verifier approval rate: 1.0
+- Puffer approval rate: 1.0
 - Improvement rate: 1.0
 - Overconfident wrong answers: 0
 - Duplicate skill rejections: 0
