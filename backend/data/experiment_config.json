@@ -1,12 +1,12 @@
 {
-  "experiment_id": "loglearner_small_data_learning_v1",
-  "title": "Small-Data Trace Reflection for Reusable Debugging Skills",
+  "experiment_id": "memoryreef_small_data_learning_v1",
+  "title": "Small-Data Trace Learning for Reusable Debugging Skills",
   "hypothesis": "Agents that reflect on their own debugging traces and store verified reusable skills will solve related debugging tasks more accurately than agents without saved skills.",
   "conditions": [
     {
       "condition_id": "baseline",
       "name": "Baseline",
-      "description": "The Investigator solves each test scenario without retrieved skills.",
+      "description": "Dory solves each test scenario without retrieved skills.",
       "uses_reflection": false,
       "uses_verifier": false,
       "uses_skill_retrieval": false,
@@ -15,7 +15,7 @@
     {
       "condition_id": "learning",
       "name": "Learning",
-      "description": "The Investigator runs the paired learn scenario, then Reflection proposes a skill and Verifier checks it.",
+      "description": "Dory runs the paired learn scenario, then Nemo proposes a skill and Puffer checks it.",
       "uses_reflection": true,
       "uses_verifier": true,
       "uses_skill_retrieval": false,
@@ -24,7 +24,7 @@
     {
       "condition_id": "reuse",
       "name": "Reuse",
-      "description": "The Investigator solves each paired test scenario with relevant verified skills available for retrieval.",
+      "description": "Dory solves each paired test scenario with relevant verified skills available for retrieval.",
       "uses_reflection": false,
       "uses_verifier": false,
       "uses_skill_retrieval": true,
@@ -33,7 +33,7 @@
     {
       "condition_id": "random_skill",
       "name": "Random Skill Control",
-      "description": "The Investigator solves each test scenario with an unrelated saved skill to control for generic skill prompting.",
+      "description": "Dory solves each test scenario with an unrelated saved skill to control for generic skill prompting.",
       "uses_reflection": false,
       "uses_verifier": false,
       "uses_skill_retrieval": true,
@@ -79,7 +79,7 @@
     {
       "metric_id": "confidence",
       "name": "Confidence",
-      "description": "The Investigator's reported confidence for the final answer."
+      "description": "Dory's reported confidence for the final answer."
     },
     {
       "metric_id": "confidence_delta",
@@ -103,7 +103,7 @@
     },
     {
       "metric_id": "verifier_approval_rate",
-      "name": "Verifier Approval Rate",
+      "name": "Puffer Approval Rate",
       "description": "Fraction of proposed skills approved or revised into saveable skills."
     },
     {

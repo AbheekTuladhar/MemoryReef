@@ -57,7 +57,7 @@ def save_paper_summary(run: ExperimentRun) -> None:
     summary = run.metric_summary
     condition_names = ", ".join(summary.conditions_run)
     lines = [
-        "# LogLearner Experiment Summary",
+        "# MemoryReef Experiment Summary",
         "",
         f"Run ID: `{run.run_id}`",
         f"Created at: `{run.created_at}`",
@@ -90,7 +90,7 @@ def save_paper_summary(run: ExperimentRun) -> None:
         "",
         "- Accuracy: fraction of condition answers matching the expected answer.",
         "- Matched expected: raw count of correct condition answers.",
-        "- Confidence: mean reported Investigator confidence.",
+        "- Confidence: mean reported Dory confidence.",
         "- Confidence delta: reuse confidence minus baseline confidence for each pair.",
         "- Evidence quality proxy: average number of cited evidence items.",
         "- Skill retrieval success: fraction of reuse runs where at least one skill was applied.",
@@ -106,7 +106,7 @@ def save_paper_summary(run: ExperimentRun) -> None:
         f"- Confidence delta by pair: {summary.confidence_delta_by_pair}",
         f"- Evidence quality proxy by condition: {summary.evidence_quality_proxy_by_condition}",
         f"- Skill retrieval success rate: {summary.skill_retrieval_success_rate}",
-        f"- Verifier approval rate: {summary.verifier_approval_rate}",
+        f"- Puffer approval rate: {summary.verifier_approval_rate}",
         f"- Improvement rate: {summary.improvement_rate}",
         f"- Overconfident wrong answers: {summary.overconfident_wrong_answers}",
         f"- Duplicate skill rejections: {summary.duplicate_skill_rejections}",

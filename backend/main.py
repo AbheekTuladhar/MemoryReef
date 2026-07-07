@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import os
+
+import backend.config  # noqa: F401  # loads repo-root .env (GOOGLE_* creds) at startup
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -17,7 +20,7 @@ from backend.tools.skill_store import load_skills, save_skill
 from backend.tools.trace_store import get_trace, save_trace
 
 
-app = FastAPI(title="LogLearner API", version="0.1.0")
+app = FastAPI(title="MemoryReef API", version="0.1.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -31,10 +34,18 @@ app.add_middleware(
 @app.get("/")
 def root() -> dict[str, object]:
     return {
-        "name": "LogLearner API",
+        "name": "MemoryReef API",
         "status": "ok",
         "message": "Use /api for available endpoints. The frontend runs at http://127.0.0.1:5173/.",
     }
+
+
+def run() -> None:
+    import uvicorn
+
+    host = os.getenv("MEMORYREEF_HOST", "127.0.0.1")
+    port = int(os.getenv("MEMORYREEF_PORT", "8000"))
+    uvicorn.run("backend.main:app", host=host, port=port, reload=True)
 
 
 @app.get("/api")
@@ -181,7 +192,7 @@ def compare(request: CompareRequest) -> dict[str, object]:
         "improved": improved,
         "confidence_delta": confidence_delta,
         "summary": (
-            "The saved skill helped the investigator prioritize reusable debugging procedure over the obvious symptom."
+            "The saved skill helped Dory prioritize reusable debugging procedure over the obvious symptom."
             if improved
             else "No clear improvement was detected; the skill library may not contain a relevant approved skill yet."
         ),

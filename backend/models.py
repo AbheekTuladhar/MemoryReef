@@ -98,7 +98,7 @@ class CompareRequest(BaseModel):
 
 
 class ExperimentRequest(BaseModel):
-    config_id: str = "loglearner_small_data_learning_v1"
+    config_id: str = "memoryreef_small_data_learning_v1"
     scenario_pair_ids: list[str] | None = None
     conditions: list[str] | None = None
     verifier_enabled: bool = True

@@ -13,18 +13,18 @@ const steps = [
   },
   {
     icon: Brain,
-    title: "2. Run the Investigator",
-    body: "The Investigator, or Dory in the demo metaphor, checks patterns and timing before giving a concise answer."
+    title: "2. Run Dory",
+    body: "Dory checks patterns and timing before giving a concise answer."
   },
   {
     icon: Save,
-    title: "3. Let Reflection teach",
-    body: "The Reflection Agent, or Nemo, reviews the trace, proposes one reusable debugging skill, and the Verifier checks it before saving."
+    title: "3. Let Nemo teach",
+    body: "Nemo reviews Dory's trace and proposes one reusable debugging skill. Puffer checks it before saving."
   },
   {
     icon: GitCompare,
     title: "4. Reuse and compare",
-    body: "Saved skills are retrieved for related scenarios. Usage counts increase when the Investigator actually applies a saved skill."
+    body: "Saved skills are retrieved for related scenarios. Usage counts increase when Dory actually applies a saved skill."
   }
 ];
 
@@ -37,7 +37,7 @@ export function TutorialModal({ open, onClose }: Props) {
         <div className="modalHeader">
           <div>
             <span className="eyebrow">Quick tour</span>
-            <h2 id="tutorial-title">How LogLearner learns</h2>
+            <h2 id="tutorial-title">How MemoryReef learns</h2>
           </div>
           <button className="iconButton" onClick={onClose} title="Close tutorial" aria-label="Close tutorial">
             <X size={18} />
@@ -47,7 +47,7 @@ export function TutorialModal({ open, onClose }: Props) {
         <div className="animatedLoop" aria-hidden="true">
           <span>Dory attempts</span>
           <span>Nemo reflects</span>
-          <span>Verifier approves</span>
+          <span>Puffer approves</span>
           <span>Skill reused</span>
         </div>
 

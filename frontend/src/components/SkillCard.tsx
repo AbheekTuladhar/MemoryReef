@@ -1,8 +1,9 @@
 import { Skill } from "../types";
 
-export function SkillCard({ skill }: { skill: Skill }) {
+export function SkillCard({ skill, isNew }: { skill: Skill; isNew?: boolean }) {
   return (
-    <article className="skillCard">
+    <article className={`skillCard${isNew ? " pearl" : ""}`}>
+      {isNew && <span className="pearlBadge">New pearl</span>}
       <div className="skillTitle">
         <h3>{skill.name}</h3>
         <span>{skill.status}</span>
