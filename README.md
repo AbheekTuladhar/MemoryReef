@@ -38,7 +38,7 @@ A random saved skill did not help, but the relevant learned lesson did. That sug
 ## The loop
 
 ```
-   ┌──────────────────────────────────────────────────────────────┐
+   ┌────────────────────────────────────────────────────────────────┐
    │                                                                │
    ▼                                                                │
 Attempt  ──▶  Trace  ──▶  Reflect  ──▶  Verify  ──▶  Save Skill ────┘
