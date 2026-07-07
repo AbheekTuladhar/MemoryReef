@@ -1,0 +1,98 @@
+[
+  {
+    "scenario_id": "loudest_error_1a",
+    "title": "Database Connection Exhaustion",
+    "pair_id": "loudest_error",
+    "purpose": "learn",
+    "task": "Find the likely cause of this incident.",
+    "input_text": "10:01 db ERROR too many connections\n10:02 payment ERROR timeout acquiring db connection\n10:03 checkout ERROR payment failed\n10:04 gateway ERROR 502\n10:04 gateway ERROR 502\n10:04 gateway ERROR 502",
+    "expected_answer": "Database connection exhaustion",
+    "common_mistake": "Choosing gateway because it has the most repeated errors.",
+    "target_skill": "Avoid the Loudest Error Trap",
+    "paired_scenario_id": "loudest_error_1b"
+  },
+  {
+    "scenario_id": "loudest_error_1b",
+    "title": "Redis Memory Exhaustion",
+    "pair_id": "loudest_error",
+    "purpose": "test",
+    "task": "Find the likely cause of this incident.",
+    "input_text": "11:01 redis ERROR maxmemory limit reached\n11:02 api ERROR connection refused\n11:03 frontend ERROR 503\n11:03 frontend ERROR 503\n11:03 frontend ERROR 503",
+    "expected_answer": "Redis memory exhaustion",
+    "common_mistake": "Choosing frontend because it has the most repeated errors.",
+    "target_skill": "Avoid the Loudest Error Trap",
+    "paired_scenario_id": "loudest_error_1a"
+  },
+  {
+    "scenario_id": "deployment_2a",
+    "title": "Missing Environment Variable",
+    "pair_id": "deployment_suspicion",
+    "purpose": "learn",
+    "task": "Find the likely cause of this incident.",
+    "input_text": "12:00 deploy INFO auth-service version v2.3.1\n12:01 auth ERROR missing env var JWT_SECRET\n12:02 auth ERROR failed to start\n12:03 gateway WARN 401 spike",
+    "expected_answer": "Missing JWT_SECRET environment variable after deployment",
+    "common_mistake": "Treating the 401 spike as the primary cause.",
+    "target_skill": "Check Recent Deployment Configuration",
+    "paired_scenario_id": "deployment_2b"
+  },
+  {
+    "scenario_id": "deployment_2b",
+    "title": "Bad Feature Flag",
+    "pair_id": "deployment_suspicion",
+    "purpose": "test",
+    "task": "Find the likely cause of this incident.",
+    "input_text": "13:00 deploy INFO checkout-service version v4.1.0\n13:01 checkout ERROR unknown feature flag CHECKOUT_V2\n13:02 checkout ERROR failed request\n13:03 gateway ERROR 500",
+    "expected_answer": "Unknown CHECKOUT_V2 feature flag after deployment",
+    "common_mistake": "Blaming the gateway 500 instead of the deployment/config clue.",
+    "target_skill": "Check Recent Deployment Configuration",
+    "paired_scenario_id": "deployment_2a"
+  },
+  {
+    "scenario_id": "retry_3a",
+    "title": "Inventory Timeout Retry Storm",
+    "pair_id": "retry_storm",
+    "purpose": "learn",
+    "task": "Find the likely cause of this incident.",
+    "input_text": "14:00 inventory ERROR timeout\n14:01 checkout WARN retry attempt 1\n14:01 checkout WARN retry attempt 2\n14:01 checkout WARN retry attempt 3\n14:02 queue WARN depth increasing\n14:03 api ERROR rate limit exceeded",
+    "expected_answer": "Inventory timeout caused retry amplification and queue growth",
+    "common_mistake": "Blaming the API rate limit without noticing retries and queue growth.",
+    "target_skill": "Detect Retry Amplification",
+    "paired_scenario_id": "retry_3b"
+  },
+  {
+    "scenario_id": "retry_3b",
+    "title": "Email Service Slowdown Retry Storm",
+    "pair_id": "retry_storm",
+    "purpose": "test",
+    "task": "Find the likely cause of this incident.",
+    "input_text": "15:00 email-service WARN slow response\n15:01 notification-service WARN retry attempt 1\n15:01 notification-service WARN retry attempt 2\n15:02 queue WARN backlog rising\n15:03 notification-service ERROR rate limit exceeded",
+    "expected_answer": "Email service slowdown caused retry amplification and backlog growth",
+    "common_mistake": "Blaming rate limiting without noticing retry storm behavior.",
+    "target_skill": "Detect Retry Amplification",
+    "paired_scenario_id": "retry_3a"
+  },
+  {
+    "scenario_id": "missing_evidence_4a",
+    "title": "Ambiguous Timeout",
+    "pair_id": "missing_evidence",
+    "purpose": "learn",
+    "task": "Find the likely cause of this incident.",
+    "input_text": "16:00 api ERROR request timeout\n16:01 frontend ERROR failed request\n16:02 gateway ERROR 504",
+    "expected_answer": "Insufficient evidence; ask for deployment logs, dependency logs, and fuller timing",
+    "common_mistake": "Overclaiming that the API is the root cause.",
+    "target_skill": "Ask for Missing Evidence Before Guessing",
+    "paired_scenario_id": "missing_evidence_4b"
+  },
+  {
+    "scenario_id": "missing_evidence_4b",
+    "title": "Ambiguous Authentication Failure",
+    "pair_id": "missing_evidence",
+    "purpose": "test",
+    "task": "Find the likely cause of this incident.",
+    "input_text": "17:00 api ERROR authentication failed\n17:01 frontend WARN login failed\n17:02 gateway WARN 401 increased",
+    "expected_answer": "Insufficient evidence; ask for auth-service logs, deployment events, or secret rotation history",
+    "common_mistake": "Overclaiming that the API is broken.",
+    "target_skill": "Ask for Missing Evidence Before Guessing",
+    "paired_scenario_id": "missing_evidence_4a"
+  }
+]

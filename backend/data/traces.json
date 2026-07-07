@@ -1,0 +1,3359 @@
+[
+  {
+    "trace_id": "trace_0ed982e1",
+    "scenario_id": "loudest_error_1a",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: db ERROR too many connections",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Database connection exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.78
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Database connection exhaustion",
+      "confidence": 0.78,
+      "evidence": [
+        "Earliest clue: db ERROR too many connections",
+        "Later errors look like downstream symptoms."
+      ],
+      "next_checks": [
+        "Confirm the initial clue with owner-service metrics."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_07093623",
+    "scenario_id": "loudest_error_1b",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, memory",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: redis ERROR maxmemory limit reached",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Frontend service issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.58
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Frontend service issue",
+      "confidence": 0.58,
+      "evidence": [
+        "frontend ERROR 503 appears repeatedly"
+      ],
+      "next_checks": [
+        "Check frontend logs and gateway routing."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_e352d468",
+    "scenario_id": "loudest_error_1b",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_c48cc9"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, memory",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: redis ERROR maxmemory limit reached",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Redis memory exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.84
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Redis memory exhaustion",
+      "confidence": 0.84,
+      "evidence": [
+        "11:01 redis ERROR maxmemory limit reached",
+        "The upstream resource failure appears before the repeated user-facing errors."
+      ],
+      "next_checks": [
+        "Confirm resource limits and dependent service connection errors."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_b3797214",
+    "scenario_id": "loudest_error_1a",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_c48cc9"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: db ERROR too many connections",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Database connection exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.84
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Database connection exhaustion",
+      "confidence": 0.84,
+      "evidence": [
+        "10:01 db ERROR too many connections",
+        "The upstream resource failure appears before the repeated user-facing errors."
+      ],
+      "next_checks": [
+        "Confirm resource limits and dependent service connection errors."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_d7b31d40",
+    "scenario_id": "loudest_error_1a",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_c48cc9",
+      "skill_trace_the_first_upstream_failure_c4d45d"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: db ERROR too many connections",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap, Trace the First Upstream Failure",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 2 saved skill(s): Avoid the Loudest Error Trap, Trace the First Upstream Failure.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Database connection exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.84
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Database connection exhaustion",
+      "confidence": 0.84,
+      "evidence": [
+        "10:01 db ERROR too many connections",
+        "The upstream resource failure appears before the repeated user-facing errors."
+      ],
+      "next_checks": [
+        "Confirm resource limits and dependent service connection errors."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_91dfae0a",
+    "scenario_id": "deployment_2a",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_c48cc9",
+      "skill_trace_the_first_upstream_failure_c4d45d"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: deployment, gateway, missing_config",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: deploy INFO auth-service version v2.3.1",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap, Trace the First Upstream Failure",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 2 saved skill(s): Avoid the Loudest Error Trap, Trace the First Upstream Failure.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.55
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Gateway issue",
+      "confidence": 0.55,
+      "evidence": [
+        "gateway errors are visible near the end of the incident"
+      ],
+      "next_checks": [
+        "Check gateway error rates and recent gateway changes."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_87acbcdf",
+    "scenario_id": "deployment_2a",
+    "used_skills": [
+      "skill_check_recent_deployment_configuration_176370",
+      "skill_avoid_the_loudest_error_trap_c48cc9",
+      "skill_trace_the_first_upstream_failure_c4d45d"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: deployment, gateway, missing_config",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: deploy INFO auth-service version v2.3.1",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Check Recent Deployment Configuration, Avoid the Loudest Error Trap, Trace the First Upstream Failure",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 3 saved skill(s): Check Recent Deployment Configuration, Avoid the Loudest Error Trap, Trace the First Upstream Failure.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Missing JWT_SECRET environment variable after deployment' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.86
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Missing JWT_SECRET environment variable after deployment",
+      "confidence": 0.86,
+      "evidence": [
+        "12:00 deploy INFO auth-service version v2.3.1",
+        "12:01 auth ERROR missing env var JWT_SECRET"
+      ],
+      "next_checks": [
+        "Inspect deployment config, feature flags, and environment variables."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_5ac0e82d",
+    "scenario_id": "loudest_error_1b",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, memory",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: redis ERROR maxmemory limit reached",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Frontend service issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.58
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Frontend service issue",
+      "confidence": 0.58,
+      "evidence": [
+        "frontend ERROR 503 appears repeatedly"
+      ],
+      "next_checks": [
+        "Check frontend logs and gateway routing."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_dce1ad73",
+    "scenario_id": "loudest_error_1a",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: db ERROR too many connections",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Database connection exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.78
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Database connection exhaustion",
+      "confidence": 0.78,
+      "evidence": [
+        "Earliest clue: db ERROR too many connections",
+        "Later errors look like downstream symptoms."
+      ],
+      "next_checks": [
+        "Confirm the initial clue with owner-service metrics."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_cb0b6196",
+    "scenario_id": "loudest_error_1b",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_ab1497"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, memory",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: redis ERROR maxmemory limit reached",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Redis memory exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.84
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Redis memory exhaustion",
+      "confidence": 0.84,
+      "evidence": [
+        "11:01 redis ERROR maxmemory limit reached",
+        "The upstream resource failure appears before the repeated user-facing errors."
+      ],
+      "next_checks": [
+        "Confirm resource limits and dependent service connection errors."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_55524853",
+    "scenario_id": "loudest_error_1b",
+    "used_skills": [
+      "skill_random_control_placeholder"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, memory",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: redis ERROR maxmemory limit reached",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Random Control Skill",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Random Control Skill.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Frontend service issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.58
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Frontend service issue",
+      "confidence": 0.58,
+      "evidence": [
+        "frontend ERROR 503 appears repeatedly"
+      ],
+      "next_checks": [
+        "Check frontend logs and gateway routing."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_5d8aa10c",
+    "scenario_id": "deployment_2b",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: deployment, gateway, missing_config, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: deploy INFO checkout-service version v4.1.0",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.55
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Gateway issue",
+      "confidence": 0.55,
+      "evidence": [
+        "gateway errors are visible near the end of the incident"
+      ],
+      "next_checks": [
+        "Check gateway error rates and recent gateway changes."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_9d19cbf1",
+    "scenario_id": "deployment_2a",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: deployment, gateway, missing_config",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: deploy INFO auth-service version v2.3.1",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Missing JWT_SECRET environment variable after deployment' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.78
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Missing JWT_SECRET environment variable after deployment",
+      "confidence": 0.78,
+      "evidence": [
+        "Earliest clue: deploy INFO auth-service version v2.3.1",
+        "Later errors look like downstream symptoms."
+      ],
+      "next_checks": [
+        "Confirm the initial clue with owner-service metrics."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_bd8cf663",
+    "scenario_id": "deployment_2b",
+    "used_skills": [
+      "skill_check_recent_deployment_configuration_a84e72",
+      "skill_avoid_the_loudest_error_trap_ab1497"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: deployment, gateway, missing_config, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: deploy INFO checkout-service version v4.1.0",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Check Recent Deployment Configuration, Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 2 saved skill(s): Check Recent Deployment Configuration, Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Unknown CHECKOUT_V2 feature flag after deployment' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.86
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Unknown CHECKOUT_V2 feature flag after deployment",
+      "confidence": 0.86,
+      "evidence": [
+        "13:00 deploy INFO checkout-service version v4.1.0",
+        "13:01 checkout ERROR unknown feature flag CHECKOUT_V2"
+      ],
+      "next_checks": [
+        "Inspect deployment config, feature flags, and environment variables."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_9ef34c55",
+    "scenario_id": "deployment_2b",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_ab1497"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: deployment, gateway, missing_config, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: deploy INFO checkout-service version v4.1.0",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.55
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Gateway issue",
+      "confidence": 0.55,
+      "evidence": [
+        "gateway errors are visible near the end of the incident"
+      ],
+      "next_checks": [
+        "Check gateway error rates and recent gateway changes."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_4b5953c1",
+    "scenario_id": "retry_3b",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: retry",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: email-service WARN slow response",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'API rate limiting' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.57
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "API rate limiting",
+      "confidence": 0.57,
+      "evidence": [
+        "rate limit exceeded appears as a terminal error"
+      ],
+      "next_checks": [
+        "Check API quota and traffic volume."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_e676acf7",
+    "scenario_id": "retry_3a",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: retry, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: inventory ERROR timeout",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Inventory timeout caused retry amplification and queue growth' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.78
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Inventory timeout caused retry amplification and queue growth",
+      "confidence": 0.78,
+      "evidence": [
+        "Earliest clue: inventory ERROR timeout",
+        "Later errors look like downstream symptoms."
+      ],
+      "next_checks": [
+        "Confirm the initial clue with owner-service metrics."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_68821177",
+    "scenario_id": "retry_3b",
+    "used_skills": [
+      "skill_detect_retry_amplification_284a2b",
+      "skill_avoid_the_loudest_error_trap_ab1497",
+      "skill_check_recent_deployment_configuration_a84e72"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: retry",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: email-service WARN slow response",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Detect Retry Amplification, Avoid the Loudest Error Trap, Check Recent Deployment Configuration",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 3 saved skill(s): Detect Retry Amplification, Avoid the Loudest Error Trap, Check Recent Deployment Configuration.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Email service slowdown caused retry amplification and backlog growth' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.82
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Email service slowdown caused retry amplification and backlog growth",
+      "confidence": 0.82,
+      "evidence": [
+        "15:01 notification-service WARN retry attempt 1",
+        "15:02 queue WARN backlog rising",
+        "15:03 notification-service ERROR rate limit exceeded"
+      ],
+      "next_checks": [
+        "Throttle retries and inspect the original slow or timed-out dependency."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_199f0d7f",
+    "scenario_id": "retry_3b",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_ab1497"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: retry",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: email-service WARN slow response",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'API rate limiting' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.57
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "API rate limiting",
+      "confidence": 0.57,
+      "evidence": [
+        "rate limit exceeded appears as a terminal error"
+      ],
+      "next_checks": [
+        "Check API quota and traffic volume."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_c3f50f20",
+    "scenario_id": "missing_evidence_4b",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: api ERROR authentication failed",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.55
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Gateway issue",
+      "confidence": 0.55,
+      "evidence": [
+        "gateway errors are visible near the end of the incident"
+      ],
+      "next_checks": [
+        "Check gateway error rates and recent gateway changes."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_145765de",
+    "scenario_id": "missing_evidence_4a",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: api ERROR request timeout",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Insufficient evidence; ask for deployment logs, dependency logs, and fuller timing' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.64
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Insufficient evidence; ask for deployment logs, dependency logs, and fuller timing",
+      "confidence": 0.64,
+      "evidence": [
+        "The snippet lacks dependency, deployment, and configuration context."
+      ],
+      "next_checks": [
+        "Ask for deployment logs, dependency logs, and fuller timestamps."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_5a80fb22",
+    "scenario_id": "missing_evidence_4b",
+    "used_skills": [
+      "skill_ask_for_missing_evidence_before_guessing_b3c5b4",
+      "skill_avoid_the_loudest_error_trap_ab1497",
+      "skill_detect_retry_amplification_284a2b"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: api ERROR authentication failed",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Ask for Missing Evidence Before Guessing, Avoid the Loudest Error Trap, Detect Retry Amplification",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 3 saved skill(s): Ask for Missing Evidence Before Guessing, Avoid the Loudest Error Trap, Detect Retry Amplification.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Insufficient evidence; ask for auth-service logs, deployment events, or secret rotation history' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.68
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Insufficient evidence; ask for auth-service logs, deployment events, or secret rotation history",
+      "confidence": 0.68,
+      "evidence": [
+        "The logs show symptoms, but no dependency, deploy, or secret-rotation context."
+      ],
+      "next_checks": [
+        "Request auth-service logs, deployment events, secret rotation history, and dependency logs."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_4d6af624",
+    "scenario_id": "missing_evidence_4b",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_ab1497"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: api ERROR authentication failed",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.55
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Gateway issue",
+      "confidence": 0.55,
+      "evidence": [
+        "gateway errors are visible near the end of the incident"
+      ],
+      "next_checks": [
+        "Check gateway error rates and recent gateway changes."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_62fbaf67",
+    "scenario_id": "loudest_error_1b",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, memory",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: redis ERROR maxmemory limit reached",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Frontend service issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.58
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Frontend service issue",
+      "confidence": 0.58,
+      "evidence": [
+        "frontend ERROR 503 appears repeatedly"
+      ],
+      "next_checks": [
+        "Check frontend logs and gateway routing."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_f12a3984",
+    "scenario_id": "loudest_error_1a",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: db ERROR too many connections",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Database connection exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.78
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Database connection exhaustion",
+      "confidence": 0.78,
+      "evidence": [
+        "Earliest clue: db ERROR too many connections",
+        "Later errors look like downstream symptoms."
+      ],
+      "next_checks": [
+        "Confirm the initial clue with owner-service metrics."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_2c2e6c5f",
+    "scenario_id": "loudest_error_1b",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_844483"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, memory",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: redis ERROR maxmemory limit reached",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Redis memory exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.84
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Redis memory exhaustion",
+      "confidence": 0.84,
+      "evidence": [
+        "11:01 redis ERROR maxmemory limit reached",
+        "The upstream resource failure appears before the repeated user-facing errors."
+      ],
+      "next_checks": [
+        "Confirm resource limits and dependent service connection errors."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_7d4fb73c",
+    "scenario_id": "loudest_error_1b",
+    "used_skills": [
+      "skill_random_control_placeholder"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, memory",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: redis ERROR maxmemory limit reached",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Random Control Skill",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Random Control Skill.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Frontend service issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.58
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Frontend service issue",
+      "confidence": 0.58,
+      "evidence": [
+        "frontend ERROR 503 appears repeatedly"
+      ],
+      "next_checks": [
+        "Check frontend logs and gateway routing."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_bf230f71",
+    "scenario_id": "deployment_2b",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: deployment, gateway, missing_config, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: deploy INFO checkout-service version v4.1.0",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.55
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Gateway issue",
+      "confidence": 0.55,
+      "evidence": [
+        "gateway errors are visible near the end of the incident"
+      ],
+      "next_checks": [
+        "Check gateway error rates and recent gateway changes."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_251bad30",
+    "scenario_id": "deployment_2a",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: deployment, gateway, missing_config",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: deploy INFO auth-service version v2.3.1",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Missing JWT_SECRET environment variable after deployment' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.78
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Missing JWT_SECRET environment variable after deployment",
+      "confidence": 0.78,
+      "evidence": [
+        "Earliest clue: deploy INFO auth-service version v2.3.1",
+        "Later errors look like downstream symptoms."
+      ],
+      "next_checks": [
+        "Confirm the initial clue with owner-service metrics."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_55d0352a",
+    "scenario_id": "deployment_2b",
+    "used_skills": [
+      "skill_check_recent_deployment_configuration_6ccfd4",
+      "skill_avoid_the_loudest_error_trap_844483"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: deployment, gateway, missing_config, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: deploy INFO checkout-service version v4.1.0",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Check Recent Deployment Configuration, Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 2 saved skill(s): Check Recent Deployment Configuration, Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Unknown CHECKOUT_V2 feature flag after deployment' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.86
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Unknown CHECKOUT_V2 feature flag after deployment",
+      "confidence": 0.86,
+      "evidence": [
+        "13:00 deploy INFO checkout-service version v4.1.0",
+        "13:01 checkout ERROR unknown feature flag CHECKOUT_V2"
+      ],
+      "next_checks": [
+        "Inspect deployment config, feature flags, and environment variables."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_e6e0d3ec",
+    "scenario_id": "deployment_2b",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_844483"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: deployment, gateway, missing_config, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: deploy INFO checkout-service version v4.1.0",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.55
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Gateway issue",
+      "confidence": 0.55,
+      "evidence": [
+        "gateway errors are visible near the end of the incident"
+      ],
+      "next_checks": [
+        "Check gateway error rates and recent gateway changes."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_1e14bd7a",
+    "scenario_id": "retry_3b",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: retry",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: email-service WARN slow response",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'API rate limiting' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.57
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "API rate limiting",
+      "confidence": 0.57,
+      "evidence": [
+        "rate limit exceeded appears as a terminal error"
+      ],
+      "next_checks": [
+        "Check API quota and traffic volume."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_49e4d894",
+    "scenario_id": "retry_3a",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: retry, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: inventory ERROR timeout",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Inventory timeout caused retry amplification and queue growth' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.78
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Inventory timeout caused retry amplification and queue growth",
+      "confidence": 0.78,
+      "evidence": [
+        "Earliest clue: inventory ERROR timeout",
+        "Later errors look like downstream symptoms."
+      ],
+      "next_checks": [
+        "Confirm the initial clue with owner-service metrics."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_9f449eac",
+    "scenario_id": "retry_3b",
+    "used_skills": [
+      "skill_detect_retry_amplification_f35083",
+      "skill_avoid_the_loudest_error_trap_844483",
+      "skill_check_recent_deployment_configuration_6ccfd4"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: retry",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: email-service WARN slow response",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Detect Retry Amplification, Avoid the Loudest Error Trap, Check Recent Deployment Configuration",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 3 saved skill(s): Detect Retry Amplification, Avoid the Loudest Error Trap, Check Recent Deployment Configuration.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Email service slowdown caused retry amplification and backlog growth' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.82
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Email service slowdown caused retry amplification and backlog growth",
+      "confidence": 0.82,
+      "evidence": [
+        "15:01 notification-service WARN retry attempt 1",
+        "15:02 queue WARN backlog rising",
+        "15:03 notification-service ERROR rate limit exceeded"
+      ],
+      "next_checks": [
+        "Throttle retries and inspect the original slow or timed-out dependency."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_78594c54",
+    "scenario_id": "retry_3b",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_844483"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: retry",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: email-service WARN slow response",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'API rate limiting' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.57
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "API rate limiting",
+      "confidence": 0.57,
+      "evidence": [
+        "rate limit exceeded appears as a terminal error"
+      ],
+      "next_checks": [
+        "Check API quota and traffic volume."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_a47ce345",
+    "scenario_id": "missing_evidence_4b",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: api ERROR authentication failed",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.55
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Gateway issue",
+      "confidence": 0.55,
+      "evidence": [
+        "gateway errors are visible near the end of the incident"
+      ],
+      "next_checks": [
+        "Check gateway error rates and recent gateway changes."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_8359809a",
+    "scenario_id": "missing_evidence_4a",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: api ERROR request timeout",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Insufficient evidence; ask for deployment logs, dependency logs, and fuller timing' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.64
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Insufficient evidence; ask for deployment logs, dependency logs, and fuller timing",
+      "confidence": 0.64,
+      "evidence": [
+        "The snippet lacks dependency, deployment, and configuration context."
+      ],
+      "next_checks": [
+        "Ask for deployment logs, dependency logs, and fuller timestamps."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_bc436655",
+    "scenario_id": "missing_evidence_4b",
+    "used_skills": [
+      "skill_ask_for_missing_evidence_before_guessing_eb15f9",
+      "skill_avoid_the_loudest_error_trap_844483",
+      "skill_detect_retry_amplification_f35083"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: api ERROR authentication failed",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Ask for Missing Evidence Before Guessing, Avoid the Loudest Error Trap, Detect Retry Amplification",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 3 saved skill(s): Ask for Missing Evidence Before Guessing, Avoid the Loudest Error Trap, Detect Retry Amplification.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Insufficient evidence; ask for auth-service logs, deployment events, or secret rotation history' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.68
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Insufficient evidence; ask for auth-service logs, deployment events, or secret rotation history",
+      "confidence": 0.68,
+      "evidence": [
+        "The logs show symptoms, but no dependency, deploy, or secret-rotation context."
+      ],
+      "next_checks": [
+        "Request auth-service logs, deployment events, secret rotation history, and dependency logs."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_0fda38c7",
+    "scenario_id": "missing_evidence_4b",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_844483"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: api ERROR authentication failed",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.55
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Gateway issue",
+      "confidence": 0.55,
+      "evidence": [
+        "gateway errors are visible near the end of the incident"
+      ],
+      "next_checks": [
+        "Check gateway error rates and recent gateway changes."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_d2aab2a4",
+    "scenario_id": "loudest_error_1b",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, memory",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: redis ERROR maxmemory limit reached",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Frontend service issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.58
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Frontend service issue",
+      "confidence": 0.58,
+      "evidence": [
+        "frontend ERROR 503 appears repeatedly"
+      ],
+      "next_checks": [
+        "Check frontend logs and gateway routing."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_6a3b9e4f",
+    "scenario_id": "loudest_error_1a",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: db ERROR too many connections",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Database connection exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.78
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Database connection exhaustion",
+      "confidence": 0.78,
+      "evidence": [
+        "Earliest clue: db ERROR too many connections",
+        "Later errors look like downstream symptoms."
+      ],
+      "next_checks": [
+        "Confirm the initial clue with owner-service metrics."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_fe365655",
+    "scenario_id": "loudest_error_1b",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_dcf048"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, memory",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: redis ERROR maxmemory limit reached",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Redis memory exhaustion' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.84
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Redis memory exhaustion",
+      "confidence": 0.84,
+      "evidence": [
+        "11:01 redis ERROR maxmemory limit reached",
+        "The upstream resource failure appears before the repeated user-facing errors."
+      ],
+      "next_checks": [
+        "Confirm resource limits and dependent service connection errors."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_e07c8e9d",
+    "scenario_id": "loudest_error_1b",
+    "used_skills": [
+      "skill_random_control_placeholder"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: database, gateway, memory",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: redis ERROR maxmemory limit reached",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Random Control Skill",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Random Control Skill.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Frontend service issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.58
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Frontend service issue",
+      "confidence": 0.58,
+      "evidence": [
+        "frontend ERROR 503 appears repeatedly"
+      ],
+      "next_checks": [
+        "Check frontend logs and gateway routing."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_53cd3aa2",
+    "scenario_id": "deployment_2b",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: deployment, gateway, missing_config, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: deploy INFO checkout-service version v4.1.0",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.55
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Gateway issue",
+      "confidence": 0.55,
+      "evidence": [
+        "gateway errors are visible near the end of the incident"
+      ],
+      "next_checks": [
+        "Check gateway error rates and recent gateway changes."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_05fa5b46",
+    "scenario_id": "deployment_2a",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: deployment, gateway, missing_config",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: deploy INFO auth-service version v2.3.1",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Missing JWT_SECRET environment variable after deployment' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.78
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Missing JWT_SECRET environment variable after deployment",
+      "confidence": 0.78,
+      "evidence": [
+        "Earliest clue: deploy INFO auth-service version v2.3.1",
+        "Later errors look like downstream symptoms."
+      ],
+      "next_checks": [
+        "Confirm the initial clue with owner-service metrics."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_e709c81c",
+    "scenario_id": "deployment_2b",
+    "used_skills": [
+      "skill_check_recent_deployment_configuration_a62f7b",
+      "skill_avoid_the_loudest_error_trap_dcf048"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: deployment, gateway, missing_config, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: deploy INFO checkout-service version v4.1.0",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Check Recent Deployment Configuration, Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 2 saved skill(s): Check Recent Deployment Configuration, Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Unknown CHECKOUT_V2 feature flag after deployment' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.86
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Unknown CHECKOUT_V2 feature flag after deployment",
+      "confidence": 0.86,
+      "evidence": [
+        "13:00 deploy INFO checkout-service version v4.1.0",
+        "13:01 checkout ERROR unknown feature flag CHECKOUT_V2"
+      ],
+      "next_checks": [
+        "Inspect deployment config, feature flags, and environment variables."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_5d6715f9",
+    "scenario_id": "deployment_2b",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_dcf048"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: deployment, gateway, missing_config, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: deploy INFO checkout-service version v4.1.0",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.55
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Gateway issue",
+      "confidence": 0.55,
+      "evidence": [
+        "gateway errors are visible near the end of the incident"
+      ],
+      "next_checks": [
+        "Check gateway error rates and recent gateway changes."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_439d79b4",
+    "scenario_id": "retry_3b",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: retry",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: email-service WARN slow response",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'API rate limiting' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.57
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "API rate limiting",
+      "confidence": 0.57,
+      "evidence": [
+        "rate limit exceeded appears as a terminal error"
+      ],
+      "next_checks": [
+        "Check API quota and traffic volume."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_fc3f5008",
+    "scenario_id": "retry_3a",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: retry, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: inventory ERROR timeout",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Inventory timeout caused retry amplification and queue growth' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.78
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Inventory timeout caused retry amplification and queue growth",
+      "confidence": 0.78,
+      "evidence": [
+        "Earliest clue: inventory ERROR timeout",
+        "Later errors look like downstream symptoms."
+      ],
+      "next_checks": [
+        "Confirm the initial clue with owner-service metrics."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_dbfb7d63",
+    "scenario_id": "retry_3b",
+    "used_skills": [
+      "skill_detect_retry_amplification_9dbade",
+      "skill_avoid_the_loudest_error_trap_dcf048",
+      "skill_check_recent_deployment_configuration_a62f7b"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: retry",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: email-service WARN slow response",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Detect Retry Amplification, Avoid the Loudest Error Trap, Check Recent Deployment Configuration",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 3 saved skill(s): Detect Retry Amplification, Avoid the Loudest Error Trap, Check Recent Deployment Configuration.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Email service slowdown caused retry amplification and backlog growth' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.82
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Email service slowdown caused retry amplification and backlog growth",
+      "confidence": 0.82,
+      "evidence": [
+        "15:01 notification-service WARN retry attempt 1",
+        "15:02 queue WARN backlog rising",
+        "15:03 notification-service ERROR rate limit exceeded"
+      ],
+      "next_checks": [
+        "Throttle retries and inspect the original slow or timed-out dependency."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_e7db612f",
+    "scenario_id": "retry_3b",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_dcf048"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: retry",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: email-service WARN slow response",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'API rate limiting' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.57
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "API rate limiting",
+      "confidence": 0.57,
+      "evidence": [
+        "rate limit exceeded appears as a terminal error"
+      ],
+      "next_checks": [
+        "Check API quota and traffic volume."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_60dc46fe",
+    "scenario_id": "missing_evidence_4b",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: api ERROR authentication failed",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.55
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Gateway issue",
+      "confidence": 0.55,
+      "evidence": [
+        "gateway errors are visible near the end of the incident"
+      ],
+      "next_checks": [
+        "Check gateway error rates and recent gateway changes."
+      ]
+    },
+    "matched_expected": false
+  },
+  {
+    "trace_id": "trace_8fdcb2f8",
+    "scenario_id": "missing_evidence_4a",
+    "used_skills": [],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: api ERROR request timeout",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "No saved skills were applied for this run.",
+        "confidence": 0.64
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Insufficient evidence; ask for deployment logs, dependency logs, and fuller timing' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.64
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Insufficient evidence; ask for deployment logs, dependency logs, and fuller timing",
+      "confidence": 0.64,
+      "evidence": [
+        "The snippet lacks dependency, deployment, and configuration context."
+      ],
+      "next_checks": [
+        "Ask for deployment logs, dependency logs, and fuller timestamps."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_1ef49b8c",
+    "scenario_id": "missing_evidence_4b",
+    "used_skills": [
+      "skill_ask_for_missing_evidence_before_guessing_3975c3",
+      "skill_avoid_the_loudest_error_trap_dcf048",
+      "skill_detect_retry_amplification_9dbade"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: api ERROR authentication failed",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Ask for Missing Evidence Before Guessing, Avoid the Loudest Error Trap, Detect Retry Amplification",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 3 saved skill(s): Ask for Missing Evidence Before Guessing, Avoid the Loudest Error Trap, Detect Retry Amplification.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Insufficient evidence; ask for auth-service logs, deployment events, or secret rotation history' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.68
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Insufficient evidence; ask for auth-service logs, deployment events, or secret rotation history",
+      "confidence": 0.68,
+      "evidence": [
+        "The logs show symptoms, but no dependency, deploy, or secret-rotation context."
+      ],
+      "next_checks": [
+        "Request auth-service logs, deployment events, secret rotation history, and dependency logs."
+      ]
+    },
+    "matched_expected": true
+  },
+  {
+    "trace_id": "trace_deb00a50",
+    "scenario_id": "missing_evidence_4b",
+    "used_skills": [
+      "skill_avoid_the_loudest_error_trap_dcf048"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "redaction_tool",
+        "observation": "No sensitive patterns detected.",
+        "reasoning_summary": "The agent redacted sensitive-looking values before storing the trace."
+      },
+      {
+        "step": 2,
+        "action": "keyword_pattern_tool",
+        "observation": "Detected hints: gateway, ambiguous",
+        "reasoning_summary": "The agent looked for incident patterns such as deployment, retry, and resource clues."
+      },
+      {
+        "step": 3,
+        "action": "timeline_tool",
+        "observation": "Earliest clue: api ERROR authentication failed",
+        "reasoning_summary": "The agent checked event order before ranking possible causes."
+      },
+      {
+        "step": 4,
+        "action": "skill_retriever",
+        "observation": "Using skills: Avoid the Loudest Error Trap",
+        "reasoning_summary": "The agent applied relevant saved procedures before answering."
+      }
+    ],
+    "agent_logs": [
+      {
+        "agent": "Investigator Agent",
+        "event": "intake",
+        "summary": "Reviewed the task input, redacted secret-like values, and prepared a concise investigation trace.",
+        "confidence": 0.9
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "skill_retrieval",
+        "summary": "Retrieved and applied 1 saved skill(s): Avoid the Loudest Error Trap.",
+        "confidence": 0.82
+      },
+      {
+        "agent": "Investigator Agent",
+        "event": "answer_selection",
+        "summary": "Chose 'Gateway issue' using timeline evidence, detected hints, and saved skills where available. Confidence is based on how well the event order and evidence match the expected incident pattern.",
+        "confidence": 0.55
+      }
+    ],
+    "final_answer": {
+      "likely_cause": "Gateway issue",
+      "confidence": 0.55,
+      "evidence": [
+        "gateway errors are visible near the end of the incident"
+      ],
+      "next_checks": [
+        "Check gateway error rates and recent gateway changes."
+      ]
+    },
+    "matched_expected": false
+  }
+]

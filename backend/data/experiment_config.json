@@ -1,0 +1,142 @@
+{
+  "experiment_id": "loglearner_small_data_learning_v1",
+  "title": "Small-Data Trace Reflection for Reusable Debugging Skills",
+  "hypothesis": "Agents that reflect on their own debugging traces and store verified reusable skills will solve related debugging tasks more accurately than agents without saved skills.",
+  "conditions": [
+    {
+      "condition_id": "baseline",
+      "name": "Baseline",
+      "description": "The Investigator solves each test scenario without retrieved skills.",
+      "uses_reflection": false,
+      "uses_verifier": false,
+      "uses_skill_retrieval": false,
+      "uses_random_skill": false
+    },
+    {
+      "condition_id": "learning",
+      "name": "Learning",
+      "description": "The Investigator runs the paired learn scenario, then Reflection proposes a skill and Verifier checks it.",
+      "uses_reflection": true,
+      "uses_verifier": true,
+      "uses_skill_retrieval": false,
+      "uses_random_skill": false
+    },
+    {
+      "condition_id": "reuse",
+      "name": "Reuse",
+      "description": "The Investigator solves each paired test scenario with relevant verified skills available for retrieval.",
+      "uses_reflection": false,
+      "uses_verifier": false,
+      "uses_skill_retrieval": true,
+      "uses_random_skill": false
+    },
+    {
+      "condition_id": "random_skill",
+      "name": "Random Skill Control",
+      "description": "The Investigator solves each test scenario with an unrelated saved skill to control for generic skill prompting.",
+      "uses_reflection": false,
+      "uses_verifier": false,
+      "uses_skill_retrieval": true,
+      "uses_random_skill": true
+    }
+  ],
+  "scenario_pairs": [
+    {
+      "pair_id": "loudest_error",
+      "name": "Loudest Error Trap",
+      "learn_scenario_id": "loudest_error_1a",
+      "test_scenario_id": "loudest_error_1b",
+      "target_skill": "Avoid the Loudest Error Trap"
+    },
+    {
+      "pair_id": "deployment_suspicion",
+      "name": "Deployment Suspicion",
+      "learn_scenario_id": "deployment_2a",
+      "test_scenario_id": "deployment_2b",
+      "target_skill": "Check Recent Deployment Configuration"
+    },
+    {
+      "pair_id": "retry_storm",
+      "name": "Retry Storm",
+      "learn_scenario_id": "retry_3a",
+      "test_scenario_id": "retry_3b",
+      "target_skill": "Detect Retry Amplification"
+    },
+    {
+      "pair_id": "missing_evidence",
+      "name": "Missing Evidence",
+      "learn_scenario_id": "missing_evidence_4a",
+      "test_scenario_id": "missing_evidence_4b",
+      "target_skill": "Ask for Missing Evidence Before Guessing"
+    }
+  ],
+  "metrics_to_collect": [
+    {
+      "metric_id": "accuracy",
+      "name": "Accuracy",
+      "description": "Whether the final answer matched the expected answer for the scenario."
+    },
+    {
+      "metric_id": "confidence",
+      "name": "Confidence",
+      "description": "The Investigator's reported confidence for the final answer."
+    },
+    {
+      "metric_id": "confidence_delta",
+      "name": "Confidence Delta",
+      "description": "Change in confidence between baseline and reuse conditions."
+    },
+    {
+      "metric_id": "evidence_count",
+      "name": "Evidence Count",
+      "description": "Number of evidence items cited in the final answer."
+    },
+    {
+      "metric_id": "skill_retrieval_success",
+      "name": "Skill Retrieval Success",
+      "description": "Whether a relevant saved skill was retrieved for the paired test scenario."
+    },
+    {
+      "metric_id": "skill_usage_count",
+      "name": "Skill Usage Count",
+      "description": "How many times saved skills were applied during the run."
+    },
+    {
+      "metric_id": "verifier_approval_rate",
+      "name": "Verifier Approval Rate",
+      "description": "Fraction of proposed skills approved or revised into saveable skills."
+    },
+    {
+      "metric_id": "duplicate_skill_rejections",
+      "name": "Duplicate Skill Rejections",
+      "description": "Number of proposed skills rejected because their final three tags matched an existing skill."
+    },
+    {
+      "metric_id": "overconfident_wrong_answers",
+      "name": "Overconfident Wrong Answers",
+      "description": "Wrong answers with confidence at or above the configured overconfidence threshold."
+    },
+    {
+      "metric_id": "improvement_rate",
+      "name": "Improvement Rate",
+      "description": "Fraction of paired test scenarios that were incorrect in baseline and correct in reuse."
+    }
+  ],
+  "metric_thresholds": {
+    "overconfidence_confidence_threshold": 0.75,
+    "minimum_evidence_items": 2
+  },
+  "ablation_flags": {
+    "verifier_enabled": true,
+    "reflection_enabled": true,
+    "skill_retrieval_enabled": true,
+    "duplicate_filtering_enabled": true,
+    "random_skill_control_enabled": true,
+    "persist_experiment_skills_to_main_library": false
+  },
+  "reproducibility": {
+    "deterministic_mode": true,
+    "dataset": "backend/data/scenarios.json",
+    "notes": "This configuration is intended for a small curated prototype benchmark and should not be interpreted as statistically generalizable without more scenarios."
+  }
+}

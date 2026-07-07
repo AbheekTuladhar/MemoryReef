@@ -1,0 +1,77 @@
+[
+  {
+    "skill_id": "skill_avoid_the_loudest_error_trap_c48cc9",
+    "name": "Avoid the Loudest Error Trap",
+    "description": "Do not assume the most repeated error is the root cause. Check event order and upstream clues first.",
+    "when_to_use": [
+      "Many repeated errors appear in one component",
+      "Multiple components are failing",
+      "Timestamps or event order are available"
+    ],
+    "steps": [
+      "Identify the most frequent error.",
+      "Build a simple timeline.",
+      "Find the earliest abnormal event.",
+      "Check whether the frequent error happened later as a symptom.",
+      "Choose the cause that best explains the chain of failures."
+    ],
+    "anti_pattern": "Choosing the noisiest error without checking timing.",
+    "source_trace_id": "trace_07093623",
+    "tags": [
+      "timeline",
+      "cause-vs-symptom",
+      "root-cause"
+    ],
+    "usage_count": 5,
+    "status": "approved"
+  },
+  {
+    "skill_id": "skill_trace_the_first_upstream_failure_c4d45d",
+    "name": "Trace the First Upstream Failure",
+    "description": "When downstream services are noisy, map the dependency chain and prioritize the first upstream failure that explains later symptoms.",
+    "when_to_use": [
+      "Multiple downstream symptoms follow one earlier dependency error",
+      "A repeated user-facing error may be masking the cause",
+      "Logs include enough ordering to compare cause and effect"
+    ],
+    "steps": [
+      "List components in likely dependency order.",
+      "Find the first failing dependency in that chain.",
+      "Check whether later errors depend on that component.",
+      "State the upstream cause separately from downstream symptoms."
+    ],
+    "anti_pattern": "Treating a downstream service as causal just because it reports the most visible errors.",
+    "source_trace_id": "trace_b3797214",
+    "tags": [
+      "dependency-order",
+      "upstream-failure",
+      "symptom-chain"
+    ],
+    "usage_count": 3,
+    "status": "approved"
+  },
+  {
+    "skill_id": "skill_check_recent_deployment_configuration_176370",
+    "name": "Check Recent Deployment Configuration",
+    "description": "If failures begin immediately after a deployment, inspect config, feature flags, and environment variables before blaming downstream symptoms.",
+    "when_to_use": [
+      "A deploy event appears just before errors",
+      "Startup or config errors follow a release"
+    ],
+    "steps": [
+      "Find the latest deploy or config change.",
+      "Compare the first error after the change.",
+      "Inspect missing environment variables, feature flags, and secret names.",
+      "Treat later gateway or status-code spikes as symptoms until proven otherwise."
+    ],
+    "anti_pattern": "Blaming user-facing status codes while ignoring the deployment clue.",
+    "source_trace_id": "trace_91dfae0a",
+    "tags": [
+      "deployment",
+      "configuration",
+      "root-cause"
+    ],
+    "usage_count": 1,
+    "status": "approved"
+  }
+]

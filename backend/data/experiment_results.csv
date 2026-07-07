@@ -1,0 +1,17 @@
+run_id,pair_id,condition_id,matched_expected,confidence,likely_cause,skills_used,evidence_count,trace_id,reflection_id,verification_status
+experiment_18e5671735,loudest_error,baseline,False,0.58,Frontend service issue,,1,trace_d2aab2a4,,
+experiment_18e5671735,loudest_error,learning,True,0.78,Database connection exhaustion,,2,trace_6a3b9e4f,reflection_89d5a7dd,approved
+experiment_18e5671735,loudest_error,reuse,True,0.84,Redis memory exhaustion,skill_avoid_the_loudest_error_trap_dcf048,2,trace_fe365655,,
+experiment_18e5671735,loudest_error,random_skill,False,0.58,Frontend service issue,skill_random_control_placeholder,1,trace_e07c8e9d,,
+experiment_18e5671735,deployment_suspicion,baseline,False,0.55,Gateway issue,,1,trace_53cd3aa2,,
+experiment_18e5671735,deployment_suspicion,learning,True,0.78,Missing JWT_SECRET environment variable after deployment,,2,trace_05fa5b46,reflection_1bab99f0,approved
+experiment_18e5671735,deployment_suspicion,reuse,True,0.86,Unknown CHECKOUT_V2 feature flag after deployment,skill_check_recent_deployment_configuration_a62f7b;skill_avoid_the_loudest_error_trap_dcf048,2,trace_e709c81c,,
+experiment_18e5671735,deployment_suspicion,random_skill,False,0.55,Gateway issue,skill_avoid_the_loudest_error_trap_dcf048,1,trace_5d6715f9,,
+experiment_18e5671735,retry_storm,baseline,False,0.57,API rate limiting,,1,trace_439d79b4,,
+experiment_18e5671735,retry_storm,learning,True,0.78,Inventory timeout caused retry amplification and queue growth,,2,trace_fc3f5008,reflection_612ed39e,approved
+experiment_18e5671735,retry_storm,reuse,True,0.82,Email service slowdown caused retry amplification and backlog growth,skill_detect_retry_amplification_9dbade;skill_avoid_the_loudest_error_trap_dcf048;skill_check_recent_deployment_configuration_a62f7b,3,trace_dbfb7d63,,
+experiment_18e5671735,retry_storm,random_skill,False,0.57,API rate limiting,skill_avoid_the_loudest_error_trap_dcf048,1,trace_e7db612f,,
+experiment_18e5671735,missing_evidence,baseline,False,0.55,Gateway issue,,1,trace_60dc46fe,,
+experiment_18e5671735,missing_evidence,learning,True,0.64,"Insufficient evidence; ask for deployment logs, dependency logs, and fuller timing",,1,trace_8fdcb2f8,reflection_0e8a367c,approved
+experiment_18e5671735,missing_evidence,reuse,True,0.68,"Insufficient evidence; ask for auth-service logs, deployment events, or secret rotation history",skill_ask_for_missing_evidence_before_guessing_3975c3;skill_avoid_the_loudest_error_trap_dcf048;skill_detect_retry_amplification_9dbade,1,trace_1ef49b8c,,
+experiment_18e5671735,missing_evidence,random_skill,False,0.55,Gateway issue,skill_avoid_the_loudest_error_trap_dcf048,1,trace_deb00a50,,
