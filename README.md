@@ -146,3 +146,4 @@ Limitations:
 ## Out of Scope
 
 LogLearner is not a Datadog/New Relic replacement, a production incident workflow, a real-time monitor, a vector database demo, or a large-scale memory benchmark. It is a focused hackathon prototype for visible small-data agent learning.
+# NemoDory
