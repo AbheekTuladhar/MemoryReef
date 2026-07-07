@@ -89,5 +89,5 @@ def _fake_run_agent(agent, prompt: str) -> str:
 def mock_llm(monkeypatch: pytest.MonkeyPatch) -> None:
     """Patch the LLM boundary in every module that imported it. Autouse: every
     test in this package runs fully offline."""
-    for module in ("investigator", "reflection", "verifier"):
+    for module in ("dory", "nemo", "puffer"):
         monkeypatch.setattr(f"backend.agents.{module}.run_agent", _fake_run_agent)

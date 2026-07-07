@@ -3,9 +3,9 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from uuid import uuid4
 
-from backend.agents.investigator import run_investigation
-from backend.agents.reflection import reflect_on_trace
-from backend.agents.verifier import verify_skill
+from backend.agents.dory import run_investigation
+from backend.agents.nemo import reflect_on_trace
+from backend.agents.puffer import verify_skill
 from backend.experiments.metrics import calculate_metric_summary
 from backend.experiments.persistence import save_experiment_artifacts
 from backend.models import (

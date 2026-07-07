@@ -58,7 +58,7 @@ This module is the LLM core. It contains:
 
 **Why tools feed the prompt instead of being ADK function-tools.** The agents do **not** register the Python tools (redactor / keyword / timeline) as ADK function-tools. `output_schema` + `tools` is not reliably supported together on current Gemini models — asking for both structured output *and* tool-calling degrades the structured output. So we run the small deterministic tools ourselves and inject their results into the prompt; the LLM still makes the actual root-cause / reflection / verify **decision**, but its output stays reliably structured. Native tool-calling is a documented next step.
 
-### Dory — Investigator (`agents/investigator.py`, `run_investigation`)
+### Dory — Investigator (`agents/dory.py`, `run_investigation`)
 
 Solves the current debugging task and leaves a trace behind. It first runs the Python tools to build the `TraceStep`s the UI shows, then asks the Dory `LlmAgent` for the decision:
 
@@ -78,14 +78,14 @@ Prompt shaping (both prompts are real Gemini calls; the difference is what goes 
 
 Output: an `AttemptTrace` (steps + agent logs + `FinalAnswer` built from `DoryOutput` + `matched_expected`).
 
-### Nemo — Reflection (`agents/reflection.py`, `reflect_on_trace`)
+### Nemo — Reflection (`agents/nemo.py`, `reflect_on_trace`)
 
 Does *not* solve the original task. It builds a prompt from the finished trace (steps, the answer, the expected answer, and whether it matched) and asks the Nemo `LlmAgent` to distill one reusable, procedural, service-agnostic lesson.
 
 - **Name steering:** the prompt tells Gemini the lesson is best described as the scenario's `target_skill` and to name the skill exactly that (or a close variant keeping its key words), so the learning loop stays coherent while the content is still LLM-authored.
 - Parses `NemoOutput`, wraps the `ProposedSkill` into a `Skill` with a fresh id and `status="proposed"`, and returns a `Reflection` (`reflection_summary`, `lesson`, proposed skill id, confidence, agent logs) plus that `Skill`.
 
-### Puffer — Verifier (`agents/verifier.py`, `verify_skill`)
+### Puffer — Verifier (`agents/puffer.py`, `verify_skill`)
 
 The quality-and-safety gate. **Hard deterministic Python guards run first and are never delegated to the LLM**; only skills that clear them reach the Puffer `LlmAgent`, which makes the nuanced usefulness/generality judgement. Order:
 

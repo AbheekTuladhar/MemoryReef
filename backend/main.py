@@ -7,9 +7,9 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.agents.investigator import run_investigation
-from backend.agents.reflection import reflect_on_trace
-from backend.agents.verifier import verify_skill
+from backend.agents.dory import run_investigation
+from backend.agents.nemo import reflect_on_trace
+from backend.agents.puffer import verify_skill
 from backend.experiments.runner import load_experiment_config, run_experiment
 from backend.models import AttemptRequest, CompareRequest, CustomScenarioRequest, ExperimentRequest, SkillRequest, TraceRequest
 from backend.tools.json_store import DATA_DIR, read_json
